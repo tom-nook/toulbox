@@ -2,11 +2,11 @@
   "title": "ToulBox",
   "url": "https://thetoulbox.com",
   "domain": "thetoulbox.com",
-  "description": "Build your developer tool set.",
+  "description": "What you need to know to thrive in tech",
   "genre": "Insert a schema.org genre",
   "googleAnalyticsId": "GA ID. Update me",
   "feed": {
-    "subtitle": "Subtitle. Update me.",
+    "subtitle": "The ToulBox Feed",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
     "id": "https://thetoulbox.com"

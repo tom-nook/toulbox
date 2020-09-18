@@ -1,7 +1,7 @@
 /* Color customization */
 :root {
-  --primary: #EF5D60;
-  --primary-dark: #d65e60;
+  --primary: #f9c412;
+  --primary-dark: #E7BF60;
 }
 
 .test-dead-code-elimination-sentinel {
@@ -108,6 +108,12 @@ header aside {
   margin-bottom: 0.5em;
 }
 
+.selfie {
+  width:200px;
+  height:200px;
+  object-fit:cover;
+  border-radius:50%;
+}
 /* https://github.com/rsms/inter/blob/master/LICENSE.txt
 
 Copyright (c) 2016-2020 The Inter Project Authors.

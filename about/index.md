@@ -7,6 +7,11 @@ eleventyNavigation:
   order: 3
 ---
 
+
+
+<img src = "../img/toul-at-the-toulbox.jpg" class="selfie"/>
+
+
 Hi, thank you for visiting my site! 
 
 I'm Toul and somehow I've managed to build a career in tech.
