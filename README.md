@@ -1,50 +1,151 @@
-# 11ty Netlify Jumpstart
+# eleventy-high-performance-blog
 
-> Created by Stephanie Eckles ([@5t3ph](https://twitter.com/5t3ph))
+A starter repository for building a blog with the [Eleventy static site generator](https://www.11ty.dev/) implementing a wide range of performance best practices.
 
-Visit [11ty-netlify-jumpstart.netlify.app](https://11ty-netlify-jumpstart.netlify.app/) for all the feature details - or go ahead and [generate a new repo from the template](https://github.com/5t3ph/11ty-netlify-jumpstart/generate) to view the information locally.
+![Screenshot showing that the site achieves 100 points on Lighthouse by default](https://cdn.glitch.com/db98564e-04da-47bf-a3d6-70803c3d0fe7%2FScreen%20Shot%202020-09-04%20at%2012.07.27.png?v=1599214260591)
 
-## Quick Start
+Based on the awesome [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog).
 
-1. [Generate a repo from this template](https://github.com/5t3ph/11ty-netlify-jumpstart/generate)
-   which will copy this project into your own new repo.
+## Demo
 
-1. Once cloned, run `npm install` to install 11ty and other dependencies. Then run `npm start` to run both 11ty and sass in watch
-   mode. Use `npm run build` to run a production version, which will also generate social share
-   preview images.
+* [Netlify Demo](https://eleventy-high-performance-blog-sample.industrialempathy.com/)
+* [Original site this template was based on](https://www.industrialempathy.com/)
 
-1. Open `src/_data/meta.js` and adjust the values to your details.
+## Getting Started
 
-1. Review the [styling documentation](https://5t3ph.github.io/html-sass-jumpstart/) for the included minimal
-   Sass framework, particularly the theme variables, to quickly customize the starter.
+### 1. Generate a new repository from this repository template
 
-1. Edit `_includes/home.njk` to change the home page - including changing the template type if desired -
-   and then create content within `_pages` using any templating format you prefer to add content.
+Click the ["Use this template"](https://github.com/google/eleventy-high-performance-blog/generate) button. Alternatively you can clone this repo yourself and push your copy to your favorite git repository.
 
-1. Check out the [About page](https://11ty-netlify-jumpstart.netlify.app/about/) for expanded details on included features of this starter.
+### 2. Clone your new repository
 
-1. Review the [11ty documentation](https://11ty.dev) to more deeply apply customizations, including
-   adding custom data sources and reviewing what template languages are available.
+```
+git clone https://github.com/YOUR_REPO
+```
 
-### Is Netlify hosting required?
+### 3. Navigate to the directory
 
-It's not required, but highly recommended, and is also how the build process is setup to run
-against.
+```
+cd my-blog-name
+```
 
-## Development Scripts
+### 4. Install dependencies
 
-**`npm start`**
+```
+npm install
+```
 
-> Run 11ty with hot reload at localhost:8080
+### 5. Build, serve, watch and test
+```
+npm run watch
+```
 
-**`npm run build`**
+### 6. Build and test
+```
+npm run build
+```
 
-> Production build includes minified, autoprefixed CSS and social preview image generation
+## Customize
 
-Use this as the "Publish command" if needed by hosting such as Netlify.
+- Search for "Update me" across files in your editor to find all the site specific things you should update.
+- Update the favicons in 'img/favicon/'.
+- Otherwise: Knock yourself out. This is a template repository.
+- For a simple color override, adjust these CSS variables at the top of `css/main.css`.
 
-## Feedback welcome!
+```css
+:root {
+  --primary: #E7BF60;
+  --primary-dark: #f9c412;
+}
+```
 
-You can [file it as an issue](https://github.com/5t3ph/11ty-netlify-jumpstart/issues).
+## Features
 
-[![Buy me a coffee](https://cdn.buymeacoffee.com/buttons/default-violet.png)](https://www.buymeacoffee.com/moderncss)
+### Performance outcomes
+
+- Perfect score in applicable lighthouse audits (including accessibility).
+- Single HTTP request to [First Contentful Paint](https://web.dev/first-contentful-paint/).
+- Very optimized [Largest Contentful Paint](https://web.dev/lcp/) (score depends on image usage, but images are optimized).
+- 0 [Cumulative Layout Shift](https://web.dev/cls/).
+- ~0 [First Input Delay](https://web.dev/fid/).
+
+### Performance optimizations
+
+#### Images
+
+- Generates multiple sizes of each image and uses them in **`srcset`**.
+- Generates a **blurry placeholder** for each image (without adding an HTML element or using JS).
+- Transcodes images to [AVIF](https://en.wikipedia.org/wiki/AV1#AV1_Image_File_Format_(AVIF)) (currently off-by-default due to instability of the encoder) and [webp](https://developers.google.com/speed/webp) and generates `picture` element.
+- **Lazy loads** images (using [native `loading=lazy`](https://web.dev/native-lazy-loading/)).
+- **Async decodes** images (using `decoding=async`).
+- **Lazy layout** of images and placeholders using [`content-visibility: auto`](https://web.dev/content-visibility/#skipping-rendering-work-with-content-visibility).
+- **Avoids CLS impact** of images by inferring and providing width and height (Supported in Chrome, Firefox and Safari 14+).
+- Downloads remote images and stores/serves them locally.
+- Immutable URLs.
+
+#### CSS
+
+- Defaults to the compact "classless" [Bahunya CSS framework](https://kimeiga.github.io/bahunya/).
+- Inlines CSS.
+- Dead-code-eliminates / tree-shakes / purges (pick your favorite word) unused CSS on a per-page basis with [PurgeCSS](https://purgecss.com/).
+- Minified CSS with [csso](https://www.npmjs.com/package/csso).
+
+#### Miscellaneous
+
+- Immutable URLs for JS.
+- Sets immutable caching headers for images, fonts, and JS (CSS is inlined). Currently implements for Netlify `_headers` file.
+- Minifies HTML and optimizes it for compression. Uses [html-minifier](https://www.npmjs.com/package/html-minifier) with aggressive options.
+- Uses [rollup](https://rollupjs.org/) to bundle JS and minifies it with [terser](https://terser.org/).
+- Prefetches same-origin navigations when a navigation is likely.
+- If an AMP files is present, [optimizes it](https://amp.dev/documentation/guides-and-tutorials/optimize-and-measure/optimize_amp/).
+
+#### Fonts
+
+- Serves fonts from same origin.
+- Makes fonts `display:swap`.
+
+#### Analytics
+
+- Supports locally serving Google Analytics's JS and proxying it's hit requests to a Netlify proxy (other proxies could be easily added).
+- Support for noscript hit requests.
+- Avoids blocking onload on analytics requests.
+- To turn this on, specify `googleAnalyticsId` in `metadata.json`. 
+
+### DX features
+
+- Uses 🚨 as favicon during local development.
+- Supports a range of default tests.
+- Runs build and tests on `git push`.
+- Sourcemap generated for JS.
+
+### SEO & Social
+
+- Share button preferring `navigator.share()` and falling back to Twitter. Using OS-like share-icon.
+- Support for OGP metadata.
+- Support for Twitter metadata.
+- Support for schema.org JSON-LD.
+- Sitemap.xml generation.
+
+### Largely useless glitter
+
+- Read time estimate.
+- Animated scroll progress bar…
+- …with an optimized implementation that should never cause a layout.
+
+### Security
+
+Generates a strong CSP for the base template.
+
+- Default-src is self.
+- Disallows plugins.
+- Generates hash based CSP for the JS used on the site.
+
+### Build performance
+
+- Downloaded remote images, and generated sizes are cached in the local filesystem…
+- …and SHOULD be committed to git.
+- `.persistimages.sh` helps with this.
+
+## Disclaimer
+
+This is not an officially supported Google product, but rather [Malte's](https://twitter.com/cramforce) private best-effort open-source project.
