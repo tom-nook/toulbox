@@ -1,8 +1,8 @@
 {
-  "title": "Title of the website. Update me.",
-  "url": "https://update-me.com",
-  "domain": "update-me.com",
-  "description": "Description of the website. Update me.",
+  "title": "ToulBox",
+  "url": "https://thetoulbox.com",
+  "domain": "thetoulbox.com",
+  "description": "Build your developer tool set.",
   "genre": "Insert a schema.org genre",
   "googleAnalyticsId": "GA ID. Update me",
   "feed": {
@@ -13,13 +13,13 @@
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
-    "url": "https://update-me.com/feed/feed.json"
+    "url": "https://thetoulbox.com/feed/feed.json"
   },
   "author": {
-    "name": "Author Name. Update me.",
-    "twitterHandle": "update_me"
+    "name": "Toul",
+    "twitterHandle": "thetoulbox"
   },
   "publisher": {
-    "name": "Publisher name. Update me."
+    "name": "The ToulBox"
   }
 }
