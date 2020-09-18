@@ -9,7 +9,7 @@
     "subtitle": "Subtitle. Update me.",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://update-me.com"
+    "id": "https://thetoulbox.com"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
@@ -20,6 +20,6 @@
     "twitterHandle": "thetoulbox"
   },
   "publisher": {
-    "name": "The ToulBox"
+    "name": "TheToulBox"
   }
 }
