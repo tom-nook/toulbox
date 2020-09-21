@@ -12,10 +12,8 @@ eleventyNavigation:
 
 Hi, thank you for visiting my site! 
 
-I'm Toul, a first-generation college graduate and the first in my family to have a professional career. 
+I'm Toul, a beginner Software Engineer in a DevOps role at [HP, Inc.](https://www.linkedin.com/in/llcranmer/). 
 
-I'm currently at [HP, Inc.](https://www.linkedin.com/in/llcranmer/) as DevOps Engineer.
-
-You'll find the academic, professional, and technical **tools** that have worked for me from college to career here.
+Follow along as I share what I'm learning about the Cloud best practices, DevOps, and software engineering. 
 
 Feel free to ask me any of your questions on [Twitter](https://twitter.com/home) or on [LinkedIn](https://www.linkedin.com/in/llcranmer/)
