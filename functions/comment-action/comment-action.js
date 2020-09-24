@@ -7,7 +7,7 @@ const {
 } = process.env;
 
 // hardcoding this for a moment... TODO: replace request with somethign that follows redirects
-const URL = "https://thetoulbox.com/.netlify/functions/comment-action";
+const URL = "https://thetoulbox.com/";
 
 /*
   delete this submission via the api

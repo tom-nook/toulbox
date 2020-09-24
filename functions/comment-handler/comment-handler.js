@@ -5,7 +5,7 @@ var request = require("request");
 // populate environment variables locally.
 require('dotenv').config()
 
-const URL = "https://thetoulbox.com/.netlify/functions/comment-handler";
+const URL = "https://thetoulbox.com/";
 
 /*
   Our serverless function handler
