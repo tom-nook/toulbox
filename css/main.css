@@ -25,6 +25,103 @@ header nav {
   z-index: 1;
 }
 
+.comment {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  border-bottom: solid 1px #363636
+}
+
+.comment .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 40px;
+  margin-right: .5em;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border: solid 1px #888;
+  box-shadow: 0 0px 6px 0 rgba(255, 255, 255, .3)
+}
+
+.comment h3 {
+  margin-top: .2em;
+  margin-bottom: .4em
+}
+
+.comment .date {
+  margin-bottom: 1em
+}
+
+.comment li {
+  list-style: inside
+}
+
+.comment-text h1 {
+  font-size: 2em
+}
+
+.comment-text h2 {
+  font-size: 1.6em
+}
+
+.comment-text h3 {
+  font-size: 1.4em
+}
+
+.comment-text h4 {
+  font-size: 1.2em
+}
+
+.comment-text p {
+  margin-top: .5em;
+  margin-bottom: 1em
+}
+
+form {
+  margin-top: 1em;
+  margin-bottom: 2em
+}
+
+form .honey {
+  visibility: hidden;
+  height: 1px;
+  overflow: none
+}
+
+form label {
+  display: block;
+  font-size: 1.1em;
+  color: #eee;
+  margin-top: 1em;
+  margin-bottom: .6em
+}
+
+form small {
+  display: block;
+  font-size: .7em;
+  color: #888
+}
+
+form input,
+form textarea {
+  width: 100%;
+  border: solid 2px #b1b1b1;
+  background-color: #262626;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 4px;
+  font-size: 16px;
+  color: #eee
+}
+
+form textarea {
+  height: 8em
+}
+
+form .needs-content {
+  border-bottom: dashed 4px #c0ff11
+}
 /*! purgecss start ignore */
 :root {
   --main-width: calc(100vw - 3em);
