@@ -19,6 +19,6 @@ module.exports = () => {
     } else {
       comments[entry.data.path] = [comment];
     }
-  };
+  }
   return comments;
 };
