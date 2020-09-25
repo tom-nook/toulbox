@@ -106,7 +106,7 @@
         {% include "../js/validate.js" %}
       {% endset %}
       <script>
-        {{ js | jsmin | safe }}
+        {{ js | safe }}
       </script>
     <!-- Current page: {{ page.url | url }} -->
   </body>
