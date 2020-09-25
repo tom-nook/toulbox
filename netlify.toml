@@ -3,6 +3,12 @@
   # Allows overriding metadata.json via env var
   command = "[ \"$METADATA_JSON\" ] && echo $METADATA_JSON > _data/metadata.json; npm run build"
   functions = "functions"
+# Config for the Netlify Build Plugin: netlify-plugin-form-submissions
+[[plugins]]
+  package = "netlify-plugin-form-submissions"
+  [plugins.inputs]
+    formNames = "approved-comments"
+    dataDirectory = "_data"  
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
 [[headers]]
