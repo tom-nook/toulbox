@@ -31,7 +31,9 @@ exports.handler = function(event, context, callback) {
 
   // parse the payload
   var body = event.body.split("payload=")[1];
+  console.log('body: ', body)
   var payload = JSON.parse(unescape(body));
+  console.log('payload: ', payload)
   var method = payload.actions[0].name;
   var id = payload.actions[0].value;
 
