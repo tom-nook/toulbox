@@ -5,7 +5,7 @@ const gravatar = require('gravatar');
 const submissions = require('./approved-comments_submissions.json');
 module.exports = () => {
   let comments = {};
-  for(var i = 0; j = submissions.length; i < j; i++) {
+  for(var i = 0; i < submissions.length; i++) {
       let entry = submissions[i]
       let comment = {
           name: entry.data.name,
