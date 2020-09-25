@@ -31,6 +31,7 @@ function purgeComment(id) {
 exports.handler = function(event, context, callback) {
 
   // parse the payload
+  console.log('Event: ', event.body)
   var body = event.body.split("payload=")[1];
   console.log('body: ', body);
   var payload = JSON.parse(unescape(body));
