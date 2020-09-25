@@ -74,20 +74,18 @@
       </noscript>
       {% endif %}
     </header>
-
     <main>
       <article>
         {% block article %}
           {{ content | safe }}
         {% endblock %}
-
         {% if page.url.indexOf("/posts/") > -1 %}
           <p>Published <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></p>
         {% endif %}
       </article>
     </main>
   {% if commentsClosed != true %}
-  {% include "comment-form.njk" -%}
+  {% include "comment-form.njk" %}
   {% else %}
     <div class="footnote">
       <p>
@@ -96,7 +94,6 @@
     </div>
   {% endif %}
   <div class="comments">
-  {# Add the any comments we have stashed for this page #}
   {% include "comments.njk" -%}
   </div>
     <footer>
@@ -108,6 +105,5 @@
       <script>
         {{ js | safe }}
       </script>
-    <!-- Current page: {{ page.url | url }} -->
   </body>
 </html>
