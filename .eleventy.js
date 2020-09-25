@@ -55,6 +55,8 @@ const CleanCSS = require("clean-css");
 const GA_ID = require("./_data/metadata.json").googleAnalyticsId;
 
 module.exports = function (eleventyConfig) {
+    // Add a date formatter filter to Nunjucks
+  config.addFilter("dateDisplay", require("./filters/dates.js") );
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginSyntaxHighlight);
   eleventyConfig.addPlugin(pluginNavigation);
