@@ -1,3 +1,4 @@
+'use strict';
 var request = require("request");
 
 // populate environment variables locally.
@@ -31,9 +32,9 @@ exports.handler = function(event, context, callback) {
 
   // parse the payload
   var body = event.body.split("payload=")[1];
-  console.log('body: ', body)
+  console.log('body: ', body);
   var payload = JSON.parse(unescape(body));
-  console.log('payload: ', payload)
+  console.log('payload: ', payload);
   var method = payload.actions[0].name;
   var id = payload.actions[0].value;
 
@@ -72,7 +73,7 @@ exports.handler = function(event, context, callback) {
             msg = 'Post to approved comments failed:' + err;
             console.log(msg);
           } else {
-            msg = 'Post to approved comments list successful.'
+            msg = 'Post to approved comments list successful.';
             console.log(msg);
             purgeComment(id);
           }
@@ -87,4 +88,4 @@ exports.handler = function(event, context, callback) {
     });
 
   }
-}
+};
