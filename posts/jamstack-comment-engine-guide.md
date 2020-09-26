@@ -448,7 +448,7 @@ Wow, that was a lot, don't worry, we're almost through. At this point, you can `
 
 There you have it, whenever someone adds a comment to your site you'll get a message in slack on whether or not to approve or delete it.
 
-![jamstack-comments-engine-slack-approval](../../img/jamstack-comment-engine-slack-approval)
+![jamstack-comments-engine-slack-approval](../../img/jamstack-comment-engine-slack-approval.png)
 
  If you approve then it triggers a redeploy, and once done it'll show the comment on your post's page.
 
