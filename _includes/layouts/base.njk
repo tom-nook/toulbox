@@ -83,6 +83,13 @@
           <p>Published <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></p>
         {% endif %}
       </article>
+      {% if commentsClosed != true %}
+      {% include "comment-form.njk" %}
+      {% else %}
+      {% endif %}
+      <div class="comments">
+      {% include "comments.njk" -%}
+      </div>
     </main>
   {% if commentsClosed != true %}
   {% include "comment-form.njk" %}
