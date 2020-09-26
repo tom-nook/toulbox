@@ -91,6 +91,13 @@
       {% include "comments.njk" -%}
       </div>
     </main>
+  {% if commentsClosed != true %}
+  {% include "comment-form.njk" %}
+  {% else %}
+  {% endif %}
+  <div class="comments">
+  {% include "comments.njk" -%}
+  </div>
     <footer>
       <a href="/about/">{{ metadata.author.name }}</a>
     </footer>

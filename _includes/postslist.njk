@@ -1,10 +1,9 @@
 <ul>
 {% for post in postslist | reverse %}
 
-    <h3>{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</h3>
+    <h3><a href="{{ post.url | url }}">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a></h3>
     <time  datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
     {% excerpt post %}
-    <a href="{{ post.url | url }}" aria-label="Read more on {{ post.data.title }}">Read more</a>
-
+    <a class="read-more-button" href="{{ post.url | url }}" aria-label="Read more on {{ post.data.title }}">Read more</a>
 {% endfor %}
 </ul>
