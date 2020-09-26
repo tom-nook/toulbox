@@ -7,10 +7,10 @@ tags:
 layout: layouts/post.njk
 ---
 
+
 <!-- Excerpt Start -->
 Hi, if you're reading this, you've probably gotten frustrated trying to set up Phil Hawksworth's excellent [jamstack-comment-engine repo](https://github.com/philhawksworth/jamstack-comments-engine), which features advanced instructions. 
 <!-- Excerpt End -->
-
 Meaning, if you're not familiar with Netlify, Slack, and Netlify Lambdas, then it can take a few days to put it all together.
 
 This post is the opposite, it is a beginner's guide with step-by-step instructions.

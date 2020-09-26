@@ -5,3 +5,4 @@ js/min.js
 js/min.js.map
 .vscode/
 posts/firstpost.md
+_data/approved-comments_submissions.json
