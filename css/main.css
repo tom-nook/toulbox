@@ -153,6 +153,17 @@ share-widget div {
   background-image: url('/img/share-apple.svg');
 }
 
+.read-more-button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #f9c412;
+  border-radius: 6px;
+  outline: none;
+}
+
 share-widget button {
   margin: 0;
 }

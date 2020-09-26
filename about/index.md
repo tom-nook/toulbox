@@ -9,12 +9,12 @@ eleventyNavigation:
 ---
 
 
-<img src = "../img/toul-at-the-toulbox.jpg" class="selfie"/>
+<img src = "../img/toul-with-friends-at-the-toulbox.jpg" class="selfie"/>
 
 Hi, thank you for visiting my site! 
 
-I'm Toul, a beginner Software Engineer in a DevOps role at [HP, Inc.](https://www.linkedin.com/in/llcranmer/). 
+I'm Toul, a beginner Software Engineer in a DevOps role at [HP, Inc.](https://www.linkedin.com/in/llcranmer/)
 
-Follow along as I share what I'm learning about the Cloud best practices, DevOps, and software engineering. 
+Follow along as I share what I'm learning about the Cloud, DevOps, and Software Engineering. 
 
 Feel free to ask me any of your questions on [Twitter](https://twitter.com/home) or on [LinkedIn](https://www.linkedin.com/in/llcranmer/)
