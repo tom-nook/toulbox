@@ -10,8 +10,9 @@ layout: layouts/post.njk
 
 # Intro 
 
+<!-- Excerpt Start -->
 Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. 
-
+<!-- Excerpt End -->
 Removing dependencies from a function also makes it easier to debug because tests are more straightforward to conduct. 
 
 To better understand dependency injection, an example will be shown using test-driven development.

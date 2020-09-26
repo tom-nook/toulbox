@@ -7,8 +7,10 @@ tags:
 layout: layouts/post.njk
 ---
 
-Hi, if you're reading this, you've probably gotten frustrated trying to set up Phil Hawksworth's excellent [jamstack-comment-engine repo](https://github.com/philhawksworth/jamstack-comments-engine), which features advanced instructions. 
 
+<!-- Excerpt Start -->
+Hi, if you're reading this, you've probably gotten frustrated trying to set up Phil Hawksworth's excellent [jamstack-comment-engine repo](https://github.com/philhawksworth/jamstack-comments-engine), which features advanced instructions. 
+<!-- Excerpt End -->
 Meaning, if you're not familiar with Netlify, Slack, and Netlify Lambdas, then it can take a few days to put it all together.
 
 This post is the opposite, it is a beginner's guide with step-by-step instructions.
@@ -451,4 +453,3 @@ There you have it, whenever someone adds a comment to your site you'll get a mes
 ![jamstack-comments-engine-slack-approval](../../img/jamstack-comment-engine-slack-approval.png)
 
  If you approve then it triggers a redeploy, and once done it'll show the comment on your post's page.
-
