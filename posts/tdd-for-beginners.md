@@ -10,25 +10,25 @@ layout: layouts/post.njk
 
 # Intro
 <!-- Excerpt Start -->
-There you are staring at a blank file. Stuck at where to start for your work or project. You've designed the program flow and understand the logic that is to be implemented, but don't know where to start. Test-Driven Development can help alleviate analysis paralysis.
+There you are staring at a blank file. Stuck at where to start for your work or project. You've designed the program flow and understand the logic, but don't know where to start. You're facing analysis paralysis, and Test-Driven Development can help.
 <!-- Excerpt End -->
 
 ## TDD the Cycle of <span style="color:red">Red</span>, <span style="color:green">Green </span>, <span style="color:blue">Blue</span> 
 
-The big idea of TDD is the  Red, Green, Blue development cycle. It helps to support two concepts. First, it is concerned with inverting the way software is developed; tests are added first not last. Additionally, tests are meant to **intentionally FAIL**. The second is to design tests that test the *intended* behaviour of the API or program being written. For this post we'll keep it simple and focus on the first idea. 
+The big idea of TDD is the Red, Green, Blue development cycle. There are two main concepts. First, inverting the way software is developed, tests are first, not last. The second is to write tests to test the *intended* behavior of the program. For this blog post, we'll focus on the first as a means to get started when you're stuck with a blank file.
 
+To better understand TDD, let's take a trivial case that exercises the development loop of a new feature called *hello visitor*, a function that prints "Hello `{visitor}.`" when invoked, where `{visitor}` is the name of the person using the process, e.g., "Hello Toul," if I used it. Let's start with the Red piece of the loop, a test that fails.
 
-To better understand TDD, let's take a trivial case that exercises the development loop of a new simple feature called *hello visitor*, a function that prints "Hello visitor." when invoked.
 
 ## <span style="color:red">Red</span>
 
-The red part of the cycle is to start with anything, anything at all, even if that means creating a test that is going to fail. In fact, start with that, anything is better than staring at a blank file for tens of minutes.
+The red part of the cycle is to start with anything, anything at all, even if that means creating a test that will fail. Start with that; anything is better than staring at a blank file for tens of minutes.
 
 ### Fail Time 
 
 ```go
-package main 
-// hello_visitor_test.go
+package main
+// main_test.go
 import (
  "testing"
  "fmt"
@@ -37,7 +37,7 @@ import (
 
 func TestHelloVisitor(t *testing.T) {
  have := HelloVisitor()
- want := "Hello nullPtr."
+ want := "Hello Toul"
  if have != want {
  fmt.Sprintf("have = %s, want = %s", have, want)
  } 
@@ -46,21 +46,21 @@ func TestHelloVisitor(t *testing.T) {
 ##### Run the test
 
 ```go
-> go test hello_visitor_test.go -v 
+> go test main_test.go -v 
 
-> ./hello_visitor_test.go:9:10: undefined: HelloVisitor
+> ./main_test.go:9:10: undefined: HelloVisitor
 FAIL command-line-arguments [build failed]
 FAIL
 ```
-### <span style="color:green">Green </span>
+## <span style="color:green">Green </span>
 
-Whoot, we've got something typed out, now let's get it to pass, by doing what the **compiler** wants us to do. The compiler complains with *"undefined: HelloVisitor"*, therefore our job is to define **HelloVisitor()**. So, we create a *main.go* file with the following code:
+Whoot, we've got something typed out, now let's get it to pass by doing what the **compiler** wants us to do. The compiler complains about *"undefined: HelloVisitor"*; therefore, our job is to define **HelloVisitor()**. So, we create a *main.go* file with the following code:
 
 ```go
 package main 
 // main.go
 func main() {
-    HelloVisitor()
+ HelloVisitor()
 }
 func HelloVisitor() string {
  return "Hello Toul."
@@ -70,68 +70,86 @@ func HelloVisitor() string {
 ##### Run the test
 
 ```go
-> go test hello_visitor_test.go -v 
+> go test main_test.go -v 
 === RUN TestHelloVisitor
 --- PASS: TestHelloVisitor (0.00s)
 PASS
 ok _/go/src/debug 1.794s
 ```
-It passed! Anything goes to get to green. Even if that means doing things that would make Donald Knuth cringe like hardcoding a string as a return value for a function.
+It passed! Anything goes to get to the green even if that means doing things that would make Donald Knuth cringe like hardcoding a string as a return value for a function.
 
 ### <span style="color:blue">Blue</span>
 
-Okay, time to redeem ourselves and to make our teachers proud by refactoring in the blue part of the cycle. In this case the refactoring is straightforward; hardcoded values are a no-no so get rid of it by passing it in as an argument.
+Okay, time to redeem ourselves and make our teachers proud by refactoring in the blue part of the cycle. In this case, the refactoring is straightforward; hardcoded values are a no-no in the software community, so get rid of it by passing it in as an argument.
 
-Now, as refactoring is taking place it is important to think about the *purpose* of the function. In this case the purpose is to great any name not just mine. 
+As refactoring is taking place, it is essential to think about the function's purpose. In this case, the intention is to greet any name, not just mine. 
 
-It is important to note that if the purpose is not clear then the time should be taken to clarify what exactly the function or program is suppose to be responsible for. That means asking the product owners, managers, and teamates for their input. 
+It is important to note that if the purpose is not clear, then the time should be taken to clarify the function or program's behavior. That means asking the product owners, managers, and teammates for their input. 
 
-Because the end behaviour of a person other names than just Toul can be solved in several different ways and some are easier than others. 
+Because getting the code to greet persons with names other than Toul can be solved in several different ways, and some are easier than others. When in doubt, go with the simplest solution and submit it for feedback. If others want more, then they can tell you then.
 
-For example prompting the user of the program to put in their name and then printing out the name could satisfy the request. So could a much more complicated solution of implementing `user accounts` for a web application where the name could be remembered as a browser cookie for subsequent visits to the site, which is considerably much more work. 
+For example, prompting the program used to put in their name and then printing out the name could satisfy the request. Another example is implementing `user accounts` for a web application with the name stored as a browser cookie for subsequent visits to the site is considerably more work. Lastly, another solution could be to create a command-line interface (CLI) that takes in `-name {name}` as an argument. As you can see, there are generally several different ways to solve problems. It is best to start simple and add complexity as needed. 
 
-For this example we'll take the easy route and prompt the user to type in their name when running the program. As it is the bare minimum needed to eliminate the hardcoded return value of the function. Now, we have accomplished the task asked and can *show* it to others for further feedback.
+For this example, we'll start simple and prompt the user to type in their name when running the program as it is the bare minimum needed to eliminate the hardcoded return value of the function.
 
+Again, to change the function, we use the TDD loop.
+
+
+#### Add the changes
 
 ```go
 package main 
 
 imports (
-    "bufio"
-    "fmt"
-    "os"
-    "strings"
+ "bufio"
+ "fmt"
+ "os"
+ "strings"
 )
 func main() {
-    // Now, when the program executes 
-    // it will expect input from the terminal aka Stdin
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Print("What is your name: ")
-    n, _ := reader.ReadString('\n')
-    n = strings.Replace(n, "\n", "", -1)
-    HelloVisitor(n)
+ // Now, when the program executes 
+ // it will expect input from the terminal aka Stdin
+ reader := bufio.NewReader(os.Stdin)
+ fmt.Print("What is your name: ")
+ n, _ := reader.ReadString('\n')
+ n = strings.Replace(n, "\n", "", -1)
+ res := HelloVisitor(n)
+ fmt.Println(res)
 }
 
 // HelloVisitor, new version that accepts an argument
-func HelloVisitor(n string) {
-    return fmt.Sprintf("Hello, %s", n)
+func HelloVisitor() {
+ // return the string for testing
+ return fmt.Sprintf("Hello, %s", n)
 }
 ```
 
-##### Running test
+#### <span style="color:red">Red</span>
 
 ```go
 > go test -v
-> hello_visitor_test.go:9:22: not enough arguments in call to HelloVisitor
+> main_test.go:9:22: not enough arguments in call to HelloVisitor
  have ()
  want (n)
 FAIL [build failed]
 Error: Tests failed.
 ```
 
-The compiler tells me that I have not updated my test to test the new function. 
+#### Update the function
 
-I'll do so now.
+```go 
+
+// Above code remains the same
+
+// HelloVisitor now accepts an argument
+func HelloVisitor(n string) string {
+ return fmt.Sprintf("Hello, %s", n)
+}
+
+```
+
+#### <span style="color:green">Green </span>
+
 
 ```go
 package main
@@ -143,15 +161,14 @@ import (
 
 func TestHelloVisitor(t *testing.T) {
  have := HelloVisitor("Toul")
- want := "Hello Toul."
+ want := "Hello Toul"
  if have != want {
  fmt.Sprintf("have = %s, want = %s", have, want)
  }
 }
 ```
 
-
-##### Running test
+##### Run the test
 
 ```
 > go test -v 
@@ -160,45 +177,12 @@ func TestHelloVisitor(t *testing.T) {
 PASS
 ok code/go/src/debug 0.258s
 ```
-I still use the Red and Green cycle while refactoring code during the Blue cycle; however, the intent has changed. Instead of only caring about getting the code to green my care has become *how to get the code to green and best answer the request*
 
+#### <span style="color:blue">Blue</span>
 
-### Feedback 
-
-A product owner tells us that while the program works it isn't user friendly, and you suggest that you can either make the program ask for input from the user, build out a cookie solution, or build a simple command line tool. They opt for the command line tool version since 
-
-```go
-package main
-
-import (
-	"bufio"
-	"fmt"
-	"os"
-	"strings"
-)
-
-func main() {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("What is your name: ")
-	n, _ := reader.ReadString('\n')
-    n = strings.Replace(n, "\n", "", -1)
-    HelloVisitor(n)
-}
-
-func HelloVisitor(n string) {
-    fmt.Printf("Hello %s", n)
-}
-
-```
-
-
+None. At this point, the function has been refactored and passes the test. Until feedback has been given by others or the design has been changed, there's no need for further change.
 
 ## Conclusion
 
-As silly as the above example may seem, it has laid down the foundation for being able to create working code systematically. 
+As silly as the above example may seem, it has laid down the foundation for systematically creating working code when you don't know where to start. The answer in my opinion is to start with <span style="color:red">Red</span> and get to <span style="color:green">green</span> as soon as possible and then take the time in <span style="color:blue">blue</span> to remove bad practices and to further consider the design of the code.
 
-Rather than focusing on trying to create code that handles every possible situation, instead, the *Product Owners* can provide feedback on whether or not the assumption(s) are correct in the code. 
-
-And better yet, I don't have to over-design my code. 
-
-The Product Owners are like the compiler; they tell me how they want the code to behave, and I update my tests or create new ones if they want the code to do more. 
