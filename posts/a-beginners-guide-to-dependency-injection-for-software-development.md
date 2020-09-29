@@ -1,14 +1,13 @@
 ---
-title: How to Use Dependency Injection
+title: A Beginner's Guide to Dependency Injection for Software Development
 description: Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. 
+image: https://unsplash.com/photos/ukzHlkoz1IE
 date: 2020-09-19
 tags:
  - TDD 
  - software-engineering
 layout: layouts/post.njk
 ---
-
-# Intro 
 
 <!-- Excerpt Start -->
 Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. Removing dependencies from a function also makes it easier to debug because tests are more straightforward to conduct. 

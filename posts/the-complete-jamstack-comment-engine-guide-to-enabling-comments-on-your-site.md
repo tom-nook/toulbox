@@ -1,13 +1,13 @@
 ---
-title: Jamstack Comment Engine Guide 
+title: The Complete Jamstack Comment Engine Guide to Enabling Comments on Your Static Site
 description: Step by step guide to enabling comments on a static site using Jamstack Comment Engine
+image: https://unsplash.com/photos/bzK0qeeoBJo
 date: 2020-09-26
 tags:
  - SEO
  - software-engineering
 layout: layouts/post.njk
 ---
-
 
 <!-- Excerpt Start -->
 Hi, if you're reading this, you've probably gotten frustrated trying to set up Phil Hawksworth's excellent [jamstack-comment-engine repo](https://github.com/philhawksworth/jamstack-comments-engine), which features advanced instructions. 
