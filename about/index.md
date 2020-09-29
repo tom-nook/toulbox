@@ -9,7 +9,7 @@ eleventyNavigation:
 ---
 
 
-<img src="https://unsplash.com/photos/mwvZHoeYj-8" class="selfie"/>
+<img src="https://source.unsplash.com/mwvZHoeYj-8/800x600" class="selfie"/>
 
 Hi, thank you for visiting my site! 
 

@@ -1,7 +1,7 @@
 ---
 title: A Beginner's Guide to Dependency Injection for Software Development
 description: Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. 
-image: https://unsplash.com/photos/ukzHlkoz1IE
+image: https://source.unsplash.com/ukzHlkoz1IE/800x600
 date: 2020-09-19
 tags:
  - TDD 

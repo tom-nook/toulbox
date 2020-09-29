@@ -1,7 +1,7 @@
 ---
 title: The Complete Jamstack Comment Engine Guide to Enabling Comments on Your Static Site
 description: Step by step guide to enabling comments on a static site using Jamstack Comment Engine
-image: https://unsplash.com/photos/bzK0qeeoBJo
+image: https://source.unsplash.com/bzK0qeeoBJo/800x600
 date: 2020-09-26
 tags:
  - SEO
