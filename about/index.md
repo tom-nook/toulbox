@@ -9,7 +9,7 @@ eleventyNavigation:
 ---
 
 
-<img src = "../img/toul-with-friends-at-the-toulbox.jpg" class="selfie"/>
+<img src="https://unsplash.com/photos/mwvZHoeYj-8" class="selfie"/>
 
 Hi, thank you for visiting my site! 
 
