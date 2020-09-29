@@ -49,7 +49,7 @@ You'll need both for the next step.
 
 Navigate to `https://app.netlify.com/sites/<YOUR_NETLIFY_SITE_NAME>/settings/deploys#environment`, and add both the environment variables.
 
-![](../../img/add-environment-variables-to-netlify.png)
+![add-environment-variables-to-netlify](../../img/add-environment-variables-to-netlify.png)
 
 **DON'T** worry about adding the `AWS_LAMBDA_JS_RUNTIME` variable as it is not essential. It was one of my tests for trying to get the comments to work and proved unnecessary in the end. 
 
