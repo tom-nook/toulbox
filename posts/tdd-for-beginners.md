@@ -1,7 +1,7 @@
 ---
 title: Test-Driven Development for Beginners
 date: 2020-03-15
-description: An introduction to test-driven development for beginners
+description: There you are staring at a blank file. Stuck at where to start. Facing analysis paralysis. Test-Driven Development can help.
 tags:
  - TDD
 layout: layouts/post.njk

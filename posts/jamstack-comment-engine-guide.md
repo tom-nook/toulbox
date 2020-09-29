@@ -3,7 +3,8 @@ title: Jamstack Comment Engine Guide
 description: Step by step guide to enabling comments on a static site using Jamstack Comment Engine
 date: 2020-09-26
 tags:
- - dev
+ - SEO
+ - software-engineering
 layout: layouts/post.njk
 ---
 
@@ -13,7 +14,7 @@ Hi, if you're reading this, you've probably gotten frustrated trying to set up P
 <!-- Excerpt End -->
 Meaning, if you're not familiar with Netlify, Slack, and Netlify Lambdas, then it can take a few days to put it all together.
 
-This post is the opposite, it is a beginner's guide with step-by-step instructions.
+This post is the opposite, it is a beginner's guide with step-by-step instructions to save you time.
 
 ## 1. Install Project Dependencies 
 
