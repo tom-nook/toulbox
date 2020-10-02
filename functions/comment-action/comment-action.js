@@ -60,7 +60,7 @@ exports.handler = function(event, context, callback) {
           'received': new Date().toString(),
           'email': data.email,
           'name': data.name,
-          'comment': data.comment
+          'message': data.comment
         };
         var approvedURL = URL;
 
