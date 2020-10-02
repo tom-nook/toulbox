@@ -15,6 +15,7 @@ const URL = "https://thetoulbox.com/";
 */
 function purgeComment(id) {
   var url = `https://api.netlify.com/api/v1/submissions/${id}?access_token=${NETLIFY_AUTH_TOKEN}`;
+  console.log(url)
   request.delete(url, function(err, response, body){
     if(err){
       return console.log(err);
