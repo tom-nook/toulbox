@@ -29,7 +29,7 @@ exports.handler = function(event, context, callback) {
       },
       {
         "fallback": "Manage comments on " + URL,
-        "callback_id": "https://thetoulbox.com/.netlify/functions/comment-action",
+        "callback_id": "comment-action",
         "actions": [
           {
             "type": "button",
