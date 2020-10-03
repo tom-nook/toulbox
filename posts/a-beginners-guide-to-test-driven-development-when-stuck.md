@@ -1,7 +1,7 @@
 ---
 title: A Beginner's Guide to Test-Driven Development when Stuck
 date: 2020-03-15
-description: There you are staring at a blank file. Stuck at where to start. Facing analysis paralysis. Test-Driven Development can help.
+description: There you are staring at a blank file, stuck at where to start. Facing analysis paralysis. Test-Driven Development can help.
 image: https://source.unsplash.com/4JxV3Gs42Ks/800x600
 tags:
  - TDD
