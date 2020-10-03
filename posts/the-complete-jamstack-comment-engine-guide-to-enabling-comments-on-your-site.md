@@ -1,19 +1,20 @@
 ---
-title: Jamstack Comment Engine Guide 
+title: The Complete Jamstack Comment Engine Guide to Enabling Comments on Your Static Site
 description: Step by step guide to enabling comments on a static site using Jamstack Comment Engine
+image: https://source.unsplash.com/bzK0qeeoBJo/800x600
 date: 2020-09-26
 tags:
- - dev
+ - SEO
+ - software-engineering
 layout: layouts/post.njk
 ---
-
 
 <!-- Excerpt Start -->
 Hi, if you're reading this, you've probably gotten frustrated trying to set up Phil Hawksworth's excellent [jamstack-comment-engine repo](https://github.com/philhawksworth/jamstack-comments-engine), which features advanced instructions. 
 <!-- Excerpt End -->
 Meaning, if you're not familiar with Netlify, Slack, and Netlify Lambdas, then it can take a few days to put it all together.
 
-This post is the opposite, it is a beginner's guide with step-by-step instructions.
+This post is the opposite, it is a beginner's guide with step-by-step instructions to save you time.
 
 ## 1. Install Project Dependencies 
 
@@ -48,7 +49,7 @@ You'll need both for the next step.
 
 Navigate to `https://app.netlify.com/sites/<YOUR_NETLIFY_SITE_NAME>/settings/deploys#environment`, and add both the environment variables.
 
-![](../../img/add-environment-variables-to-netlify.png)
+![add-environment-variables-to-netlify](../../img/add-environment-variables-to-netlify.png)
 
 **DON'T** worry about adding the `AWS_LAMBDA_JS_RUNTIME` variable as it is not essential. It was one of my tests for trying to get the comments to work and proved unnecessary in the end. 
 

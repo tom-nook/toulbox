@@ -1,6 +1,7 @@
 ---
-title: How to Use Dependency Injection
-description: An example of using Dependency injection in GOlang
+title: A Beginner's Guide to Dependency Injection for Software Development
+description: Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. 
+image: https://source.unsplash.com/ukzHlkoz1IE/800x600
 date: 2020-09-19
 tags:
  - TDD 
@@ -8,14 +9,10 @@ tags:
 layout: layouts/post.njk
 ---
 
-# Intro 
-
 <!-- Excerpt Start -->
-Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. 
-<!-- Excerpt End -->
-Removing dependencies from a function also makes it easier to debug because tests are more straightforward to conduct. 
-
+Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. Removing dependencies from a function also makes it easier to debug because tests are more straightforward to conduct. 
 To better understand dependency injection, an example will be shown using test-driven development.
+<!-- Excerpt End -->
 
 ## Example
 
