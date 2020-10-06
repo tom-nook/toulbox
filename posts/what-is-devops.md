@@ -10,8 +10,9 @@ layout: layouts/post.njk
 
 ## What is DevOps Engineer
 
+<!-- Excerpt Start -->
 I started in a Developer and Operations (DevOps) role upon graduation, which is not the typical trajectory. Because at the time I was the least experienced member on the team as the rest of the team had 4-5+ years of industry experience on average. 
-
+<!-- Excerpt End -->
 After, being in DevOps for a couple of years the path to becoming a DevOps Engineer seems to be; be a software engineer for a year or two and be interested in learning about automation of processes. 
 
 However, I was able to get into DevOps by focusing on it while in undergrad and seeking out internships specifically for it. 
