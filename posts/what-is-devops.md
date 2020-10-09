@@ -12,12 +12,18 @@ layout: layouts/post.njk
 
 <!-- Excerpt Start -->
 The DevOps Engineer role is a relatively new role that has come into existence during the past decade in I.T. and seems hard to define.
+
 Part of what makes the position challenging to understand is that it is continually changing due to new technologies.
-However, a good start at understanding it is to realize that it is a mix of several different roles; software Engineer, sysadmin, network engineer, and more.
-Of the roles, the two with the most massive influence are software engineering and sysadmin. It can be thought that the Dev piece of DevOps is Software Engineering, and the Ops is sysadmin. 
+
+However, a good start at understanding it is to realize that it is a mix of several different roles; software engineer, sysadmin, network engineer, and more.
+
+Of the roles, the two with the most massive influence are software engineering and sysadmin. I think the  Dev piece of DevOps is Software Engineering, and the Ops is sysadmin. 
+
 With that mindset, then the following will make sense.
-A DevOps Engineer is responsible for building software that automates the developer experience and sysadmin responsibilities.
-Here is what a DevOps Engineer might look like today.
+
+> A DevOps Engineer is responsible for building software that automates the developer experience and sysadmin responsibilities. 
+
+This post demonstrates what a DevOps engineer does and what DevOps culture is and isn't using Azure and Azure DevOps.
 <!-- Excerpt End -->
 
 ### Skillset 
@@ -37,7 +43,7 @@ Typically a DevOps Engineer has the following experience with technology:
 
 ## Not DevOps 
 
-To better understand, let's establish what a culture on Not DevOps looks like in an organization.
+To better understand, let's establish what a culture of Not DevOps looks like in an organization.
 
 ### Dunder Mifflin Paper Company 
 
@@ -136,15 +142,13 @@ The workflow piece is probably easier to identify as the coding portion + pushin
 - Logging
  - Set up for us
 
-Which is sufficient for this use case of learning or a small project. However, in an enterprise environment, Azure CLI would most likely not be used to set everything up since enterprises have elaborate set-ups that require fine-tuning.
-
-Remember, this **isn't DevOps** just an example of what a workflow might look like that isn't using DevOps looks like.
+Which is sufficient for this use case of learning or a small project. 
 
 ## Another Iteration of Developer and Operations Workflow
 
 #### 1.) Single Change at a Time
 
-Whoof, we've gotten started on the project for the Dunder Mifflin Paper Company. Still, one of the bosses notices that the Web App only says "Hello World" and has no other features. So they want it to speak at the bare minimum, "Dunder Mifflin Paper Company -- Online Orders Coming Soon!". So they add it as a work item for us to do.
+Whoot, we've gotten started on the project for the Dunder Mifflin Paper Company. Still, one of the bosses notices that the Web App only says "Hello World" and has no other features. So they want it to speak at the bare minimum, "Dunder Mifflin Paper Company -- Online Orders Coming Soon!". So they add it as a work item for us to do.
 
 ##### 1.a) Integrate a change
 
@@ -167,15 +171,15 @@ and push the code to the GitHub
 
 #### 2.) Multiple Changes at a Time
 
-Dunder Mifflin realizes that they need more than just one person to get the features they want, so they grudgingly hire another I.T. person, slightly angry that they're spending all of this money without any return!
+Dunder Mifflin realizes that they need more than just one person to get the features they want. The leaders decide to hire another I.T. person. 
 
-Now, you, who started the project, needs to figure out how to deploy changes. You'll have the new person make P.R.'s on the repo, and whenever the merge to the Main branch happens, you'll pull the changes and run the deployment.
+Now, you, who started the project, need to figure out how to deploy changes. You'll have the new person make P.R.'s on the repo, and whenever the merge to the Main branch happens, you'll pull the changes and run the deployment.
 
-Hence, now you're doing both Development and Operations for the team; technically, you were before, but now you have someone other than yourself that you're deploying code for. You're starting to become a DevOps Engineer. 
+Hence, now you're doing both Development and Operations for the team; technically, you were before, but now you have someone other than yourself that you're deploying code. You're starting to become a DevOps Engineer. 
 
-A few months pass by, and progress is going slow, so Dunder Mifflin Paper Company decides to hire 10 I.T. Workers from all around the world, rather than to hire another onshore, to ensure 24/7 uptime.
+A few months pass by, and progress is slow, so Dunder Mifflin Paper Company decides to hire 10 I.T. Workers from all around the world for 24/7 development time.
 
-Uh-oh. Now, your job is to monitor the code base for merges to master continuously. You decide to set up a chat and tell other Developers to ping you whenever they merge to master. You're soon receiving pings at all times at night and day since now you support two different timezones.
+Uh-oh. Now, your job is to monitor the code base for merges to the Main branch continuously. You decide to set up a chat and tell other Developers to message you whenever they merge to the Main branch. You're soon receiving pings at all times at night and day since now you support two different timezones.
 
 You fall behind.
 
@@ -186,11 +190,11 @@ Messy code is deployed to production and has a few bugs. Now you need to Revert 
 
 But, the entire process takes several hours due to unforeseeable technical difficulties. Customers aren't happy and choose to buy their paper from **Michael Scott Online Paper Company**. The bosses aren't content to lose customers and money.
 
-You get yelled at by the bosses. The other developers say it was *not* their fault because they do *business logic* and you are in charge of the **Operation** of production and **Developer's workflow**, which they say sucks because they could've got their *hotfix* out faster if you hadn't made the process so complicated (remember that chat option?).
+You get yelled at by the bosses. The other developers say it was *not* their fault because they do *business logic*. You are in charge of the **Operation** of production and ** Developer's workflow**. The other developers argue they could've got their *hotfix* out faster if you hadn't made the process so complicated (remember that chat option?).
 
 Understandably, you're irate. You think to yourself,
 
-> *How are am I supposed to make sure no messy code get's deployed? And if it does that, it is simple to revert to a previous working version? How am I suppose to handle so many requests to merge to the Main branch? How am I supposed to test that the code doesn't have bugs?*
+> *How are am I supposed to make sure no messy code makes it to production? And if it does that, it is simple to revert to a previous working version? How am I suppose to handle so many requests to merge to the Main branch? How am I supposed to test that the code doesn't have bugs?*
 
 So, you go online and learn about DevOps and convince the bosses to spend yet more money on the project, in the form of DevOps training. After attending training, you know about the following big ideas: 
 
@@ -200,7 +204,7 @@ Rather than having your chatbox blown up day and night, you learn about this ide
 
 ### Continuous Deployment (CD)
 
-Rather than pulling the code and running az web app up from your terminal, it is done automatically upon a successful merge to the Main branch. It then deploys to the Dev Environment, and if that goes well, it gets deployed to production. Else it fails, and the Developers are issued a bug to go and fix the code. 
+Rather than pulling the code and running `az webapp up` from your terminal, it is done automatically upon a successful merge to the Main branch. It then deploys to the Dev Environment, and if that goes well, it gets deployed to production. Else it fails, and the Developers are issued a bug to go and fix the code. 
 
 ## DevOps Example
 
@@ -225,18 +229,25 @@ Now that we've seen what DevOps doesn't look like, let's see what it could like 
 ### DevOps Example - CI
 
 
-
 #### 1.) Import Repo
 
-First, it is necessary to let Azure DevOps know about your Repository, so connect the two by using the import feature.
+First, it is necessary to let Azure DevOps know about your Repository, connecting the two by using the import feature.
 ![azure-devops-clone-repo](../../img/azure-devops-clone-repo.png)
 
 #### 2.) Go to pipelines
 
 Now that it has been imported, set up a *pipeline service* to listen to the repo.
 
+##### 2.a Select the Django Linux Web App
+
 ![azure-devops-pipeline-select-django-linux-app](../../img/azure-devops-pipeline-select-django-linux-app.png)
+
+##### 2.b Select your subscription (it's FREE)
+
 ![azure-devops-pipeline-select-subscription](../../img/azure-devops-pipeline-select-subscription.png)
+
+##### 2.c Select the Default YAML template
+
 ![azure-devops-pipeline-select-default-yaml](../../img/azure-devops-pipeline-select-default-yaml.png)
 
 #### 3.) Run the pipeline
@@ -247,72 +258,129 @@ Run the pipeline one time to complete the process of setting it up.
 
 ### DevOps Example - CD
 
+Again like with the az CLI tool, all of the deployment is done for you, but the difference is now any merge to the Main branch will trigger a deployment, regardless of *who* does it.
+
+However, it is handy to be aware of the following pages for debugging and ensuring that it is functional.
+
 #### 1.) View Pipelines
+
+To see all of the pipelines in your organization.
 
 ![azure-devops-see-pipelines](../../img/azure-devops-see-pipelines.png)
 
-#### 2.) View Build
+#### 2.) View Status
+
+To view the status of a build and deployment. 
+Vital, use here is for the logs whenever either one of the two fails.
+
 ![azure-devops-pipeline-see-build](../../img/azure-devops-pipeline-see-build.png)
 
 #### 3.) Build is successful
+
+What we want our pipeline to look like, if it is green, then it means that none of the new code has broken anything at the code level (syntax/compilation). But unless there is QA integrated into the pipeline or tests, it will not tell us if the code's behavior is broke from the proposed new changes.
+
 ![azure-devops-pipeline-successful-build](../../img/azure-devops-pipeline-successful-build.png)
 
-### DevOps Example - Operations
-#### SCRUM / AGILE
+### DevOps Example - Agile / SCRUM Operations
 
-SCRUM is a way of organizing work derived from the Agile method and part of the DevOps mindset.
-Azure DevOps also includes it as a way of organizing work. The main ideas behind SCRUM are the Fibonacci way of sizing work, sprints, and velocity.
+The code is automatically flowing from local Developers' computers to the computers in the cloud. Productivity is through the roof. But there are too many work items to be kept track of, and some are dependent on other things. Deadlines start to fail since hotfixes are happening more and more. 
 
-###### Fibonacci Numbers to Size work
+Since you've been responsible for increasing productivity, management asks if you can sort out the problem of keeping up with work and deadlines. You go back to the internet and research ways to be more efficient and learn about SCRUM / Agile. You realize that SCRUM is a way of organizing work derived from the Agile method and is part of the DevOps mindset.
 
-The Fibonacci number sequence is generated by summing the last numbers of the series.
+#### SCRUM Powered by Fibonacci Numbers
+
+The Fibonacci number sequence is the way of generating a series of numbers by following a pattern. The pattern is to sum the current number with the previous to develop the next. 
+
 Example: 
-1
-2
-3
-5
-8
-13
-21
+0, 1, 1, 2, 3, 5, 8, 13, 21 and so on.
 
 The idea is to measure work using the above numbers rather than to think about the time in hours. The reasoning behind it is that humans are imperfect at estimating how long something will take but aren't so bad at measuring how big a task is. Typically the measurement units are mapped to some physical equivalent--t-shirt sizes being popular.
 
-1 - xs
-2 - sm
-3 - med
-5 - lg
-8 - xl
-13 - xxl
-21 - xxl
+**Effort Chart**
+1 - XS
+2 - SM
+3 - MED
+5 - LG
+8 - XL
+13 - XXL
+21 - XXL
 
 But it can be anything.
 
-1 - chihuahua
+1 - Chihuahua
 2 - Dachund
 3 - Shnauzer
 5 - Labrador
 8 - Pitbull
 13 - Rottweiler
-21 - Great dane
+21 - Great Dane
 
-#### 1.) Create a backlog
+
+Thankfully, Azure DevOps has built-in features to make the process scalable for a team, so we'll use it to demonstrate.
+
+#### 1.) Create a backlog (a to-do list)
+
+A backlog is a collection of all the work items assigned to your team from the people who want you to build them something. 
+
+So,  create one. 
+
 ![azure-devops-create-backlog](../../img/azure-devops-create-backlog.png)
 
-#### 2.) Create an Epic
+#### 2.) Create  Epic(s) - Big Work Item(s)
+
+An Epic is a big task of size 13 or 21. One of the work items assigned to the team is to build an online store, which is a big ask. So it becomes an Epic.
+
 ![azure-devops-create-epic](../../img/azure-devops-create-epic.png)
 
-#### 3.) Create child tasks
+#### 3.) Create child tasks - Break Down the Big Work Item(s)
+
+Child tasks are subtasks associated with the Epic. And can vary in measurement but typically are smaller than 5. Some examples of what might make sense for an online store:
+
+- display items 
+	- size: 1
+- display item prices
+	- size: 1
+- create item database and records
+	- size: 3
+- create storage for item pics
+	- size: 1
+- create cart
+	- size: 5
+
 ![azure-devops-create-child-task](../../img/azure-devops-create-child-task.png)
 
+
 #### 4.) Backlog to track work
+
+As work happens, a task board shows who is committed to doing and what has been done.
+
 ![azure-devops-backlog-move-to-doing](../../img/azure-devops-backlog-move-to-doing.png)
 ![azure-devops-backlog-move-to-done](../../img/azure-devops-backlog-move-to-done.png)
 
-#### 5.) Measure the teams' velocity
+#### 5.) Daily Stand-Up
+
+Each day the team will meet for no more than 15 mins to discuss what they did yesterday, what they're doing today, and if there are any blockers. It is to ensure that the team can help each other out and identify any dependencies on work. 
+
+#### 6.) Sprint and Increments to  Measure Velocity
+
+The sum of all the effort points from the done column over the period it took to do them is the velocity. The measurement of time is usually done by having Sprints with increments. A sprint is a lengthier period than an increment. For example, Sprint 1 is from January to March, and within it has 2-week increments; 6 increments to be exact. 
+
+So, during the start of each increment, the team will go through setting out the 'to-do' list, then committing to doing them, and then moving to Done. At the end of each increment, the velocity is measured. 
+
+##### Example: 
+The team has 200 pts of effort in the Done column from increment 1, and increment 1 is ten days (business days). Therefore, the velocity is
+
+200 pts / 10 days => 20 pts / day. 
+
+#### 7.) Weekly Reflection
+
+Now, before the next week begins, a discussion happens around what went well and what didn't go well so that the velocity can increase.
+
 ![azure-devops-check-velocity](../../img/azure-devops-check-velocity.png)
 
+### Conclusion
 
-
+I hope that both the questions of *What is DevOps?* and *What a DevOps Engineer is?*, has become more apparent. Please, leave me a comment if any point is unclear.
 
 
 
