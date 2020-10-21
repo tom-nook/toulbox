@@ -90,7 +90,7 @@
         <p></p>
       {% endif %}
       <div class="comments">
-      {% include "comments.njk" -%}
+      {% include "comments.njk" %}
       </div>
     </main>
     <footer>
@@ -99,6 +99,7 @@
       {% set js %}
         {% include "../js/validate.js" %}
       {% endset %}
+      <script type="text/javascript" src="https://apiv2.popupsmart.com/api/Bundle/358025" async></script>
       <script>
         {{ js | safe }}
       </script>
