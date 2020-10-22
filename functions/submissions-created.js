@@ -4,6 +4,7 @@ const { BUTTONDOWN_API_KEY } = process.env
 
 exports.handler = async event => {
   const payload = JSON.parse(event.body).payload
+  console.log('payload: ', payload)
   console.log(`Recieved a submission: ${payload.email}`)
 
   return fetch("https://api.buttondown.email/v1/subscribers", {
