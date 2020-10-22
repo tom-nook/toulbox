@@ -13,7 +13,7 @@ exports.handler = async event => {
       Authorization: `Token ${BUTTONDOWN_API_KEY}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email: payload.email, notes: payload.name }),
+    body: JSON.stringify({ email: payload.email, name: payload.name }),
   })
     .then(response => response.json())
     .then(data => {
