@@ -84,6 +84,7 @@
           <p>Published <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></p>
         {% endif %}
       </article>
+      {% include "subscribe-form.njk" %}
       {% if commentsClosed != true %}
       {% include "comment-form.njk" %}
       {% else %}
@@ -96,10 +97,10 @@
     <footer>
       <a href="/about/">{{ metadata.author.name }}</a>
     </footer>
-      {% set js %}
-        {% include "../js/validate.js" %}
-      {% endset %}
-      <script type="text/javascript" src="https://apiv2.popupsmart.com/api/Bundle/358025" async></script>
+      <script async defer src="{{ "/js/popup.js" | addHash }}"></script>
+      {# {% set js %}
+        {% include "../js/popup.js" %}
+      {% endset %} #}
       <script>
         {{ js | safe }}
       </script>
