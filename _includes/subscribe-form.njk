@@ -1,16 +1,22 @@
-<form name="subscribe" netlify-honeypot="full-name" action="/thanks" netlify>
-<h3>Subscribe </h3>
-  <p class="honey">
-    <input name="path" type="hidden" value="{{ page.url }}">
-    <label>Your full name: <input name="full-name"></label>
-  </p>
-  <p>
-    <input type="text" name="name" id="name" placeholder="Your name">
-  </p>
-  <p>
-    <input type="email" name="email" id="email" placeholder="Your email">
-  </p>
-  <p>
-    <button type="submit" class="btn">Subscribe</button>
-  </p>
-</form>
+<div id="popup" class="bottomMenu hide">
+    <form name="subscribe" netlify-honeypot="full-name" action="/thanks" netlify>
+    <h4>Like what you're reading so far?</h4>
+    <p>
+        Then subscribe to the ToulTip Newsletter to get professional advice over 
+        Software Engineering, DevOps, and the Cloud!
+    </p>
+    <p class="honey">
+        <input name="path" type="hidden" value="{{ page.url }}">
+        <label>Your full name: <input name="full-name"></label>
+    </p>
+    <p>
+        <input type="text" name="name" id="name" placeholder="Your name">
+    </p>
+    <p>
+        <input type="email" name="email" id="email" placeholder="Your email">
+    </p>
+    <p>
+        <button type="submit" class="btn">Subscribe</button>
+    </p>
+    </form>
+</div>

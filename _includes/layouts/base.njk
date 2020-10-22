@@ -84,7 +84,7 @@
           <p>Published <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></p>
         {% endif %}
       </article>
-      <div id="myID" class="bottomMenu hide"></div>
+      {% include "subscribe-form.njk" %}
       {% if commentsClosed != true %}
       {% include "comment-form.njk" %}
       {% else %}
