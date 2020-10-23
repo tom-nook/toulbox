@@ -10,43 +10,42 @@ layout: layouts/post.njk
 ---
 
 <!-- Excerpt Start -->
-In this post, I'll show exactly how to create a newsletter for your site and enable users to sign up via a popup as they read the article. Because creating a newsletter for a static website on Netlify or any platform can be quite challenging since there are no servers involved.
+In this post, I'll show exactly how to create a newsletter for your site and enable users to sign up via a popup as they read the article. 
 <!-- Excerpt End -->
 
 ## What we're creating 
 
 I'll show how to create a popup form that will enable users to sign-up for the Newsletter. It'll activate once the visitor to the site has read a certain amount of the post. In this case, it'll be the **ToulTip Newsletter**, but the code will work for any newsletter.
 
-![](../../img/thetoulbox-subscription-pop-up-box.png)
-
+![thetoulbox-newsletter-subscription-pop-up-box](../../img/thetoulbox-subscription-pop-up-box.png)
 
 ### 1. Sign Up for buttondown.email
 
-There are several options out there, ranging from managed like [Mailchimp.com](https://mailchimp.com) to fully self-hosted and self-managed [Sendy.co](https://sendy.co). But, what I wanted was one that was in between, reasonably priced, and had excellent customer service. And for me, that choice is [buttondown.email](https://buttondown.email/register), which provides an API endpoint to hit for enrolling new subscribers!
+There are several options out there, ranging from managed like [Mailchimp.com](https://mailchimp.com) to fully self-hosted and self-managed [Sendy.co](https://sendy.co). But, what I wanted was one that was in between, reasonably priced, and had excellent customer service. And for me, that choice is [buttondown.email](https://buttondown.email/register), which provides an API endpoint to hit for enrolling new subscribers.
 
-Signing up is easy, and the rate plan works for me. It's free for your first thousand and costs just $5 extra per 1000 added, which is perfect for my use case.
+Signing up is easy, and the rate plan is affordable. It's free for your first thousand and costs just $5 extra per 1000 added, which is perfect for almost any site just starting out.
 
-![](../../img/thetoulbox-sign-up-for-buttondown-email.png)
+![thetoulbox-button-down-email-sign-up-page](../../img/thetoulbox-sign-up-for-buttondown-email.png)
 
 After you have registered your account, navigate to https://buttondown.email/settings, and set up your Newsletter. Don't worry. You can go back and change any of the settings later, so don't feel that you must fill in the fields with precisely the correct copy for your Newsletter. 
 
-![](../../img/thetoulbox-settings-for-buttondown-email-newsletter.png)
-
-
+![the-toul-box-newsletter-settings](../../img/thetoulbox-settings-for-buttondown-email-newsletter.png)
 
 Make sure to copy your API key as it will be needed for the next step.
 
 ### 2. Create your Subscribe Form 
 
-Netlify is smart enough to know whenever you have created a form by simply adding `netlify` to the form tag. Make sure to include the `netlify-honeypot` section because it prevents spambots from wasting your form submissions, which is a concern as you only get **100 free** form submissions Netlify a month before needing to upgrade to the pro plan. And in general, it is a concern for any site that has forms on it. It is an excellent freebie from Netlify so that you don't have to figure out how to handle it (usually having a captcha). The form name will be the same name shown in the Netlify console, so if you prefer a different name, then that is the piece to change. 
+Netlify is smart enough to know whenever you have created a form by simply adding `netlify` to the form tag. Make sure to include the `netlify-honeypot` section because it prevents spambots from wasting your form submissions, which is a concern as you only get **100 free** form submissions Netlify a month before needing to upgrade to the pro plan. And in general, it is a concern for any site that has forms on it. It is an excellent freebie from Netlify so that you don't have to figure out how to handle it (usually having a Recaptcha). The form name will be the same name shown in the Netlify console.
 
 The method section represents the type of HTTP method used whenever the form is submitted via the `subscribe` button. 
 
 There are only two types of ways that can be used with Netlify; POST and GET. 
 
-We'll be using the  POST HTTP method makes the most sense since the form will be using a Netlify function to submit the data to the `buttondown.email` API.
+We'll be using the POST HTTP method makes the most sense since the form will be using a Netlify function to submit the data to the `buttondown.email` API.
 
- Lastly, the `action` portion of the form will function as the redirect, which will send the user to the `success.html` page for the site. **HINT** If you don't have a `success.html` page, you can create or redirect it back to the home page. However, I think the user experience should see that they've submitted their data and a second step for them to do (confirm subscription via e-mail).
+ Lastly, the `action` portion of the form will function as the redirect, which will send the user to the `success.html` page for the site. **HINT** If you don't have a `success.html` page, you can create or redirect it back to the home page (action="/"). 
+
+However, I think it is a better user experience to be informed after submitting their data to check their inbox to confirm their subscription, hence the `success.html` page.
 
 ```html
 <div id="popup" class="bottomMenu hide">
@@ -79,11 +78,11 @@ Netlify also makes the creation of AWS Lambda functions incredibly easy. All tha
 
 `> npm install dotenv@8.2.0`
 
-
 ```toml
 [build]
  functions = "functions"
 ```
+After, the functions folder has been added, create the `submission-created.js` file within it, which should have the following:
 
 ```js
 // submission-created.js
@@ -124,21 +123,20 @@ Now that all the pieces have been laid out, it is time to push the code so that 
 
 #### Form created 
 
-![](../../img/thetoulbox-netlify-view-forms.png)
+![the-toul-box-view-netlify-forms](../../img/thetoulbox-netlify-view-forms.png)
 
 #### Netlify Function created 
 
-![](../../img/submission-created-js-netlify-function.png)
-
-
+![the-toul-box-view-netlify-functions](../../img/submission-created-js-netlify-function.png)
 
 ### 6. Add the popup.js code to your website
 
-To enable the popup we'll be using a CSS animation trick with JS to change the `<div>` that houses the `<form>` from `bottomMenu hide` to `bottomMenu show`. Which is going be two separate CSS classes 
+To enable the popup, we'll be using a CSS animation trick with JS to change the `<div>` that houses the `<form>` from `bottomMenu hide` to `bottomMenu show`. It will be two separate CSS classes, one with `opacity: 1` and the other with `opacity: 0`.
 
 #### CSS 
 
-Add the Following CSS to wherever your CSS is stored for your site. 
+Add the following CSS to wherever your CSS is stored for your site. 
+
 ```css
 .bottomMenu {
  position: fixed;
@@ -164,7 +162,7 @@ Add the Following CSS to wherever your CSS is stored for your site.
 
 #### <div> tag wrapped around form
 
-Make sure to wrap the `subscribe form` with a `div` tag with the `class="bottomMenu hide"`.
+Make sure to wrap the `subscribe form` with a `div` tag with the `class="bottomMenu hide"`to use the CSS styles. 
 
 ```html
 <div id="popup" class="bottomMenu hide">
@@ -192,13 +190,15 @@ Make sure to wrap the `subscribe form` with a `div` tag with the `class="bottomM
 ```
 
 
-#### JS function 
+#### popup.js
 
-The Javascript function gets the <div> element by its `id`, which is named `popup`. You can call it whatever you want. Just make sure to change the code. 
+Add the following javascript file `popup.js` to wherever you store your JS. Do **not** add it to the **functions** folder that was created previously. This is a function that lives within your website, not a Netlify lambda function. 
 
-Now, `y` is the variable that is storing the value of the screen's verticle point, so that whenever the user scrolls past 3000 pixels and before 5000 pixels, the box will pop up asking the reader if they'd like to subscribe to the Newsletter. 
+The function works by getting the <div> element by its `id`, named `popup`.
 
-The idea behind this is that if the reader is scrolling slowly (reading) the article, then they are interested and might be more likely to subscribe, rather than spamming the reader as soon as the open the post or waiting until the very end of the article to ask with a static box (most readers don't read all the way to the end)
+`Y` is the variable that stores the value of the screen's verticle point so that whenever the user has scrolled between 3000 and 5000 pixels, then the box will pop up, asking the reader if they'd like to subscribe to the Newsletter. 
+
+The idea behind this is that if the reader is scrolling slowly (reading) the article, they are interested and might be more likely to subscribe. It also makes for a more pleasant user experience.
 
 ```js
 myID = document.getElementById("popup");
@@ -215,9 +215,21 @@ window.addEventListener("scroll", myScrollFunc);
 
 ### 7. Test that it all works 
 
-![](../../img/thetoulbox-verified-submissions.png)
+### Check that the form is submitted
 
-![](../../img/thetoulbox-view-submissions-to-form.png)
+Shout out to [Ben Looper](https://benlooper.net) for testing it out!
 
-![](../../img/verify-user-added-to-buttondown-email.png)
+![the-toul-box-view-form-submissions](../../img/thetoulbox-view-submissions-to-form.png)
+
+### Check the Netlify Function logs 
+
+![the-toul-box-verify-netlify-function-logs](../../img/the-toul-box-netlify-function-logs.png)
+
+### Check that user is added to the Newsletter
+
+![the-toul-box-veriy-user-added-to-newsletter](../../img/verify-user-added-to-buttondown-email.png)
+
+### Conclusion 
+
+Now, you have a Netlify site capable of signing up your visitors to a newsletter.  If you have any questions or trouble, then leave a comment below or reach out to me on Twitter for assistance.
 
