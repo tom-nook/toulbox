@@ -9,7 +9,7 @@
     <meta name="ahrefs-site-verification" content="ace2249fd80de154eed23c23f5673cd802430883b1c721d2857f42f64ecbef6e">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="{{ csp.regular | safe }}">
+    <meta http-equiv="Content-Security-Policy" content="; img-src *; script-src https://widgets.getpocket.com https://assets.pinterest.com https://widgets.pinterest.com {{ csp.regular | safe }}; ">
     {% if isdevelopment %}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     {% else %}
@@ -76,6 +76,8 @@
       {% endif %}
     </header>
     <main>
+          <a data-pocket-label="pocket" data-pocket-count="vertical" class="pocket-btn" data-lang="en"></a>
+          <a data-pin-do="buttonPin" data-pin-count="above" href="https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fkentbrew%2F6851755809%2F&media=https%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest"></a>
       <article>
         {% block article %}
           {{ content | safe }}
@@ -97,12 +99,8 @@
     <footer>
       <a href="/about/">{{ metadata.author.name }}</a>
     </footer>
-      <script async defer src="{{ "/js/popup.js" | addHash }}"></script>
-      {# {% set js %}
-        {% include "../js/popup.js" %}
-      {% endset %} #}
-      <script>
-        {{ js | safe }}
-      </script>
+    <script async defer src="{{"/js/pinit.js" | addHash }}"></script>
+    <script async defer src="{{ "/js/popup.js" | addHash }}"></script>
+    <script async defer src="{{"/js/pocket.js" | addHash }}"></script>
   </body>
 </html>

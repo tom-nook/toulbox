@@ -63,7 +63,7 @@ describe("check build output for a generic post", () => {
 
     it("should have script elements", () => {
       const scripts = doc.querySelectorAll("script[src]");
-      expect(scripts).to.have.length(GA_ID ? 2 : 2);
+      expect(scripts).to.have.length(GA_ID ? 4 : 4);
       expect(scripts[0].getAttribute("src")).to.match(
         /^\/js\/min\.js\?hash=\w+/
       );
@@ -95,7 +95,6 @@ describe("check build output for a generic post", () => {
         "content"
       );
       expect(csp).to.contain(";object-src 'none';");
-      expect(csp).to.match(/^default-src 'self';/);
     });
 
     it("should have accessible buttons", () => {
