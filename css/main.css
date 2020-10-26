@@ -25,6 +25,12 @@ header nav {
   z-index: 1;
 }
 
+.social-media-bar {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .bottomMenu {
   position: fixed;
   bottom: 0;
