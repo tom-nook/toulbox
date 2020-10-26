@@ -67,17 +67,19 @@ const addCspHash = async (rawContent, outputPath) => {
       "meta[http-equiv='Content-Security-Policy']"
     );
     if (!csp) {
+      console.log('content: ', content)
       return content;
     }
     csp.setAttribute(
       "content",
       csp.getAttribute("content").replace("HASHES", hashes.join(" "))
     );
-
     content = dom.serialize();
+    console.log('content: ', content)
   }
-
+  console.log('content: ', content)
   return content;
+
 };
 
 module.exports = {
