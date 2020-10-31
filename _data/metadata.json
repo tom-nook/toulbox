@@ -4,7 +4,6 @@
   "domain": "thetoulbox.com",
   "description": "What you need to know to thrive in tech",
   "genre": "Insert a schema.org genre",
-  "googleAnalyticsId": "GA ID. Update me",
   "feed": {
     "subtitle": "The ToulBox Feed",
     "filename": "feed.xml",
