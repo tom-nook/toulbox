@@ -1,17 +1,19 @@
 ---
 title: A Beginner's Guide to Dependency Injection for Software Development
-description: Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. 
+description: Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so.
 image: https://source.unsplash.com/ukzHlkoz1IE/800x600
 date: 2020-09-19
 tags:
- - TDD 
- - software-engineering
+  - TDD
+  - software-engineering
 layout: layouts/post.njk
 ---
 
 <!-- Excerpt Start -->
-Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. Removing dependencies from a function also makes it easier to debug because tests are more straightforward to conduct. 
+
+Dependency injection is the idea of removing dependencies from within a function and aids in building a more resilient codebase by doing so. Removing dependencies from a function also makes it easier to debug because tests are more straightforward to conduct.
 To better understand dependency injection, an example will be shown using test-driven development.
+
 <!-- Excerpt End -->
 
 ## Example
@@ -23,7 +25,7 @@ Suppose we have a file called `user.json` containing a single user's information
 ```json
 // user.json
 {
- age: 34
+  "age": 34
 }
 ```
 
@@ -68,14 +70,13 @@ The above function works, and the test also works. However, the following depend
 - File path
 - Existence of user.json file in the codebase
 
-At first glance, it seems like no big deal. However, this small decision adds up over time as the codebase grows. 
+At first glance, it seems like no big deal. However, this small decision adds up over time as the codebase grows.
 
 If the pattern of supplying sample files for testing is established early on, it is likely to continue.
 
-And if it continues, then there may end up being tens, if not at worst, hundred of fake test files. 
+And if it continues, then there may end up being tens, if not at worst, hundred of fake test files.
 
 That means unnecessary bloat and also additional work on maintenance of the fake test files.
-
 
 ### Solution - Split the function into two
 
@@ -116,8 +117,8 @@ func TestGetFileData(t *testing.T) {
  }
 }
 ```
-#### 2. GetUserAge
 
+#### 2. GetUserAge
 
 ```go
 package main
@@ -161,7 +162,7 @@ func TestGetAge(t *testing.T) {
 
 In the GetUserAge function, there's a declaration of the `User` structure, which is not what the service is responsible for. So instead, it can be refactored to be removed from the function.
 
-As shown in the final result below. Again the idea is only to have code related to precisely what the function is supposed to do; anything else can be removed and passed in as an argument.. 
+As shown in the final result below. Again the idea is only to have code related to precisely what the function is supposed to do; anything else can be removed and passed in as an argument..
 
 [See it Live on go playground](https://play.golang.org/p/bV8bNxqm06W)
 
@@ -226,4 +227,3 @@ func GetFileData(rdr io.Reader) ([]byte, error) {
 ### Conclusion
 
 **Big Idea -** The function is split into two, each with their own single responsibility. Allowing them to receive the data in its true form and not be responsible for dealing with file paths and files.
-
