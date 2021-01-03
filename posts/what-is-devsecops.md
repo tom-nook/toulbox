@@ -248,7 +248,9 @@ EXPOSE 8080
 ENTRYPOINT ["./main"]
 ```
 
-Which, are the instructions that we tell the docker installed upon the GitHub Action how to build our Docker Image for the Web App, so add the following to the `main.yaml`
+Which, are the instructions that we tell the docker installed upon the GitHub Action how to build our Docker Image for the Web App, so add the following to the `main.yaml`.
+
+You may be prompted in the build logs to enable 'github container registry' for your repo, so go ahead and do that.
 
 ```yaml
 ### Above is still the same
@@ -262,35 +264,146 @@ build:
     - uses: actions/checkout@v2
     - name: Build App Image
       run: docker build . --tag $IMAGE_NAME
-    - uses: anchore/scan-action@v2
-      id: scan
-      with:
-        image: hi-web-app:latest
-        acs-report-enable: true
-        fail-build: true
-        severity-cutoff: medium
-    - name: Upload anchore scan SARIF report
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: ${{ steps.scan.outputs.sarif }}
-    - name: Inspect action SARIF report
-      run: cat ${{ steps.scan.outputs.sarif }}
 ```
 
 ### I.g Scan the Docker image - Sec
 
+Anchore is a great free dockerfile/docker image scanning tool. I chose to use it over Snyk, another great tool withe a *free tier because it required users to set up an account with them.
+
+```yaml
+### Above is still the same
+### ADDED THE FOLLOWING
+- uses: anchore/scan-action@v2
+id: scan
+with:
+  image: hi-web-app:latest
+  acs-report-enable: true
+  fail-build: true
+  severity-cutoff: medium
+- name: Upload anchore scan SARIF report
+uses: github/codeql-action/upload-sarif@v1
+with:
+  sarif_file: ${{ steps.scan.outputs.sarif }}
+- name: Inspect action SARIF report
+run: cat ${{ steps.scan.outputs.sarif }}
+```
+
 ### I.h Store the Docker Image inside of the github container registry for use - QA
 
+First create a personal token as instructed by the [GitHub Team](). Then, add the following:
+
+```yaml
+### Above is still the same
+### ADDED THE FOLLOWING
+- name: Log into GitHub Container Registry
+uses: docker/login-action@v1
+with:
+  registry: ghcr.io
+  username: ${{ github.repository_owner }}
+  password: ${{ secrets.CR_PAT }}
+
+- name: Push image to GitHub Container Registry
+run: |
+  IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+  # Change all uppercase to lowercase
+  IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+  # Strip git ref prefix from version
+  VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+  # Strip "v" prefix from tag name
+  [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+  # Use Docker `latest` tag convention
+  [ "$VERSION" == "master" ] && VERSION=latest
+  echo IMAGE_ID=$IMAGE_ID
+  echo VERSION=$VERSION
+  docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+  docker push $IMAGE_ID:$VERSION
+```
+
+The reason we are creating an image is because we want other users to be able to simple 'PULL' the image whenever they wish to use the product. Additionally, it makes it easier to deploy to any server that is capable of running Docker such as a Kubernetes cluster, EKS, AKS, GKE, etc.
+
+In our case it will be elastic beanstalk's docker platform. Lastly, it is helpful to have each image saved to the container registry in case, somehow an image is deployed that is broken. In that scenario, we can easily deploy the previous tag to the server in under a minute so that our users/customers ideally do not experience downtime (broken site experience).
 
 ## II. CD => The AWS Docker Platform via Elastic Beanstalk
 
 ### II. Parts of the (CD) Security Pipeline
 
-#### II.a Build the Image for Elastic Beanstalk with the unique tag for versioning - QA
+#### II.a Zip files for Elastic Beanstalk with the unique tag for versioning - QA
+
+We again rebuild the image for Elastic Beanstalk which has specific requirements such as having a zipped archive with a `Dockerfile` and `main.go`/main file of the programming language.
+
+```yaml
+### Above is still the same
+### ADDED THE FOLLOWING
+deploy:
+  if: github.ref == 'refs/heads/main'
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+    - name: Generate deployment package
+      run: zip files.zip main.go Dockerfile
+
+    - name: Get timestamp
+      uses: gerred/actions/current-time@master
+      id: current-time
+
+    - name: Run string replace
+      uses: frabert/replace-string-action@master
+      id: format-time
+      with:
+        pattern: '[:\.]+'
+        string: "${{ steps.current-time.outputs.time }}"
+        replace-with: '-'
+        flags: 'g'
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v10
+      with:
+        aws_access_key: ${{secrets.AWS_ACCESS_GO_KEY_ID}}
+        aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_GO_KEY}}
+        application_name: "godevsecops-docker-platform"
+        environment_name: "GodevsecopsDockerPlatform-env"
+        region: "us-east-2"
+        version_label: "godevsecops-${{ steps.format-time.outputs.replaced }}"
+        deployment_package: files.zip
+```
 
 #### II.b Deploy the application to elastic beanstalk - SysAdmin
 
+```yaml
+### Above is still the same
+### ADDED THE FOLLOWING
+- name: Deploy to Elastic Beanstalk
+uses: einaregilsson/beanstalk-deploy@v10
+with:
+  aws_access_key: ${{secrets.AWS_ACCESS_GO_KEY_ID}}
+  aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_GO_KEY}}
+  application_name: "godevsecops-docker-platform"
+  environment_name: "GodevsecopsDockerPlatform-env"
+  region: "us-east-2"
+  version_label: "godevsecops-${{ steps.format-time.outputs.replaced }}"
+  deployment_package: files.zip
+```
+
+
 #### II.c Dynamically test the web application - Sec
 
+```yaml
+### Above is still the same
+### ADDED THE FOLLOWING
+dynamic_security_scan:
+  if: github.ref == 'refs/heads/main'
+  name: OWASP ZAP Dynamic Security Scan
+  runs-on: ubuntu-latest
+  needs: deploy
+  steps:
+    - name: ZAP Scan
+      uses: zaproxy/action-full-scan@v0.2.0
+      with:
+        token: ${{ secrets.ZAP_TOKEN }}
+        target: 'https://getsaas.co'
+        cmd_options: '-a'
+```
+
 #### II.d Analyze Results of the Dynamic testing
+
+[llcranmer/go-devsecops-pipeline](https://github.com/llcranmer/go-devsecops-pipeline/issues)
 
