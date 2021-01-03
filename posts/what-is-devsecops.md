@@ -41,20 +41,23 @@ name-of-your-github-project/
    - main.yaml
 ```
 
-By creating the '.github' folder GitHub automatically begins to process `github actions` or in other words, github's version a Continuous Integration Pipeline, which I wrote about in my previous article [what is devops]().
+By creating the  `workflows` folder within the `.github` folder GitHub automatically begins to process `github actions` or in other words, github's version a Continuous Integration Pipeline, which I wrote about in my previous article [what is devops]().
 
 Don't worry each GitHub account that is enabled is allowed a free amount of [2000 minutes of build time.](https://github.com/pricing)
 
 Also, create the following
 
 ```yaml
+
 name-of-your-github-project/
 .github
+## Add the below
 main_test.go
 main.go
+
 ```
 
-Develop a quick web application using [Test Driven Development]()(link to prev. article) by adding the following to `main_test.go`, which will fail whenever you run `go test` because there is no `handlerFunc` within `main.go`
+Develop a quick web application using [Test Driven Development](https://thetoulbox.com/posts/a-beginners-guide-to-test-driven-development-when-stuck/) by adding the following to `main_test.go`, which will fail whenever you run `go test` because there is no `handlerFunc` within `main.go`
 
 ```yaml
 package main
@@ -110,10 +113,9 @@ Now, running `go test` results in a `PASS`
 
 ### Setting up the first part of the `main.yaml`
 
+First, the project is given a name`name`, and in this case it is the same as the repo, however you can name yours whatever you like. Next, the pattern for running the github actions is defined, for my use case I want it to always run on the `main` branch and for any `pull_requests`. Lastly, I define a few environment variable that will be used later on. Again, feel free to name them whatever you want, but for the `WEB_IMAGE` you will need to do a quick set up for github container registry if you are planning to follow along. Here's an article from the GitHub Team on [how to do so](https://github.blog/2020-09-01-introducing-github-container-registry/)
+
 ```yaml
-
-First, the project is named, and in this case it is the same as the repo, however you can name yours whatever you like. Next, the pattern for running the github actions is defined, for my use case I want it to always run on the `main` branch and for any `pull_requests`. Lastly, I define a few environment variable that will be used later on. Again, feel free to name them whatever you want, but for the `WEB_IMAGE` you will need to do a quick set up for github container registry if you are planning to follow along. Here's an article from the GitHub Team on [how to do so](https://github.blog/2020-09-01-introducing-github-container-registry/)
-
 name: go-devsecops-pipeline
 on:
   push:
@@ -128,13 +130,13 @@ env:
   WEB_IMAGE: ghcr.io/llcranmer/go-devsecops-pipeline/hi-web-app:main
 ```
 
-
-
 ### I.a Parts of the (CI) Security Pipeline
 
 Now, that the repo is enabled it is time to start adding in the steps to the `main.yaml` file. Each one of the steps will be related to Security, Quality Assurance, or sys admin/cloud engineering.
 
 #### I.b Linter - QA
+
+- [GolangCI-lint](https://github.com/marketplace/actions/run-golangci-lint)
 
 Imagine, that your project has several contributors on it and each probably small style differences (in GoLang this is mostly resolved by `go fmt`), however not every programming language has built formatting for itself. Therefore, it may be a good idea to get used to having a Linter within your pipeline. Because the linter will enforce the same style conventions for anyone that decides to contribute to the project. So, it is important that for each branch (PR) that is not the main branch, that the linter is run. In our case since this is a GoLang based project we'll use 'golangci-lint', from [Github Marketplace Actions]. In general, I've selected projects with the highest amount of stars. There should be `linters` available for whichever language you are developing in.
 
@@ -156,7 +158,9 @@ jobs:
 
 #### I.c Static Security Scan - Sec.
 
-A static security scan checks the source code against a database of known [Common Vulnerability Exploits (CVE's)](), by adding one no the pipeline we'll ensure that any well known public security exploits can be caught before they make it into the main branch. Again, I've selected a language specific one for GoLang, however [snyk]() is another valid choice and can scan several different languages. However, it will require you to set-up an account, generate a token, and is only FREE if you are working on an open source project.
+- [GoSec](https://github.com/securego/gosec)
+
+A static security scan checks the source code against a database of known [Common Vulnerability Exploits (CVE's)](https://cve.mitre.org/), by adding one no the pipeline we'll ensure that any well known public security exploits can be caught before they make it into the main branch. Again, I've selected a language specific one for GoLang, however [Snyk](https://github.com/marketplace/actions/snyk) is another valid choice and can scan several different languages. However, it will require you to set-up an account, generate a token, and is only FREE if you are working on an open source project.
 
 ```yaml
 ### Above is still the same
@@ -176,7 +180,11 @@ A static security scan checks the source code against a database of known [Commo
 
 #### I.d Secrets Check - Sec
 
+- [Secret Scan](https://github.com/marketplace/actions/secret-scan)
+
 Checking in secrets into a GitHub branch or repo happens much more often then it should and can be tedious to clean up from the GitHub Commit History, meaning just because you delete the secret on the next check-in does not mean it is gone from GitHub history at all. Again, let's keep other contributors from being able to make that mistake by scanning for secrets on every commit to branches.
+
+Another, perhaps greater alternative that requires creating an account and possibly may cost money is [GitGuardian Shield Action](https://github.com/marketplace/actions/gitguardian-shield-action).
 
 ```yaml
 ### Above is still the same
@@ -190,7 +198,9 @@ secrets_check:
 ```
 #### I.e Unit Tests - QA
 
-Now, we'll run the test(s) that we wrote for the web application just to make sure the behavior of the code is acting as expected.
+- [Golang Test Annotation](https://github.com/marketplace/actions/golang-test-annotations)
+
+Now, we'll run the test(s) that we wrote for the web application just to make sure the behavior of the code is acting as expected, and make it a little nicer, in that whenever a test fails it'll generate a more pleasant test case failure due to using the action.
 
 ```yaml
 ### Above is still the same
@@ -251,6 +261,8 @@ ENTRYPOINT ["./main"]
 Which, are the instructions that we tell the docker installed upon the GitHub Action how to build our Docker Image for the Web App, so add the following to the `main.yaml`.
 
 You may be prompted in the build logs to enable 'github container registry' for your repo, so go ahead and do that.
+
+Also, note the `needs` section which takes in an array of values, which are in this case the previous steps. Essentially, we only want to build the image if the QA/Basic Security checks have based, otherwise we will not bother with running this step. It is ideal because it will (a) save build minutes and (b) make sure nothing that doesn't pass the basic QA and security checks is built.
 
 ```yaml
 ### Above is still the same
