@@ -4,34 +4,27 @@ description: DevSecOps is becoming a desirable practice in many organizations, b
 image: https://source.unsplash.com/jHZ70nRk7Ns/800x600
 date: 2020-10-08
 tags:
- - devops
- - devsecops
+ - DevOps
+ - DevSecOps
 layout: layouts/post.njk
 ---
 
 ## What is a DevSecOps Engineer
 
 <!-- Excerpt Start -->
-The DevSecOps Engineer role is a relatively new role that has come into existence during the past decade in I.T. and seems hard to define.
 
-Part of what makes the position challenging to understand is that it is continually changing due to new technologies.
+This post shows how to build a fully automated and free DevSecOps Pipeline powered GitHub Actions for GoLang. So, anyone starting a project can make it with security in mind. The DevSecOps pipeline similar to the previous post [What is DevOps?](https://thetoulbox.com/posts/what-is-devops/), but it will be more technical in that it will **not** rely on any CLI to do everything automagically.
 
-However, a good start at understanding it is to realize that it is a mix of several different roles; software engineer, sysadmin, security engineer, network engineer, and more.
-
-Of the roles, the ones with the most massive influence are software engineer, sysadmin, and security analyst. I think the  Dev piece of DevOps is Software Engineering, the Ops is sysadmin, and Sec is the security analyst.
-
-With that mindset, then the following will make sense.
-
-> A DevSeOps Engineer is responsible for building software that automates the developer experience, sysadmin responsibilities, and incorporates security focus from step one.
-
-This post demonstrates what a DevSecOps engineer does and what DevSecOps culture is and isn't using Github Actions (CI), GoLang, and AWS Elastic Beanstalk (CD).
 <!-- Excerpt End -->
 
 
-## I. CI => Enabling Github Actions
+## I. Continuous Integration (CI)
 
-### Setting up basic GoLang web application
-In the root of your Github Project create the following.
+GitHub Actions is a new offering from GitHub that turns any repository into a CI Pipeline with minimal effort. Additionally, it has a generous marketplace of [Actions](https://github.com/marketplace) that make building out a `*.yaml` pipeline file a breeze.
+
+### Enabling GitHub Actions
+
+In the root of your GitHub Project, create the following folder structure and files:
 
 ```yaml
 
@@ -41,11 +34,11 @@ name-of-your-github-project/
    - main.yaml
 ```
 
-By creating the  `workflows` folder within the `.github` folder GitHub automatically begins to process `github actions` or in other words, github's version a Continuous Integration Pipeline, which I wrote about in my previous article [what is devops]().
+By creating the  `workflows` folder within the `.github` folder, GitHub automatically begins to process `GitHub actions` or, in other words, Github's version a Continuous Integration Pipeline, which I wrote about in my previous article [what is devops]().
 
-Don't worry each GitHub account that is enabled is allowed a free amount of [2000 minutes of build time.](https://github.com/pricing)
+Don't worry. Each GitHub account that is enabled is allowed a free amount of [2000 minutes of build time.](https://github.com/pricing)
 
-Also, create the following
+Also, create the following.
 
 ```yaml
 
@@ -86,7 +79,7 @@ func TestHome(t *testing.T) {
 }
 ```
 
-and then to satisfy the test add the following to the `main.go` file.
+And then, to satisfy the test add the following to the `main.go` file.
 
 
 ```yaml
@@ -109,11 +102,11 @@ func main() {
 
 ```
 
-Now, running `go test` results in a `PASS`
+Now, running `go test` results in a `PASS.`
 
 ### Setting up the first part of the `main.yaml`
 
-First, the project is given a name`name`, and in this case it is the same as the repo, however you can name yours whatever you like. Next, the pattern for running the github actions is defined, for my use case I want it to always run on the `main` branch and for any `pull_requests`. Lastly, I define a few environment variable that will be used later on. Again, feel free to name them whatever you want, but for the `WEB_IMAGE` you will need to do a quick set up for github container registry if you are planning to follow along. Here's an article from the GitHub Team on [how to do so](https://github.blog/2020-09-01-introducing-github-container-registry/)
+First, give the project a  name via the`name:` field, and in this case, it is the same as the repo. However, you can name yours, whatever you like. Next, the pattern for running GitHub actions is defined. I want it to always run on the `main` branch and for any `pull_requests` for my use case. Lastly, I describe a few environment variables for use later on. Again, feel free to name them whatever you want, but for the `WEB_IMAGE`, you will need to do a quick setup for the GitHub container registry if you plan to follow along. Here's an article from the GitHub Team on [how to do so](https://github.blog/2020-09-01-introducing-github-container-registry/)
 
 ```yaml
 name: go-devsecops-pipeline
@@ -132,13 +125,13 @@ env:
 
 ### I.a Parts of the (CI) Security Pipeline
 
-Now, that the repo is enabled it is time to start adding in the steps to the `main.yaml` file. Each one of the steps will be related to Security, Quality Assurance, or sys admin/cloud engineering.
+Now that the repo is enabled, it is time to start adding in the steps to the `main.yaml` file. Each of the steps will relate to Security, Quality Assurance, or sysadmin/cloud engineering.
 
 #### I.b Linter - QA
 
 - [GolangCI-lint](https://github.com/marketplace/actions/run-golangci-lint)
 
-Imagine, that your project has several contributors on it and each probably small style differences (in GoLang this is mostly resolved by `go fmt`), however not every programming language has built formatting for itself. Therefore, it may be a good idea to get used to having a Linter within your pipeline. Because the linter will enforce the same style conventions for anyone that decides to contribute to the project. So, it is important that for each branch (PR) that is not the main branch, that the linter is run. In our case since this is a GoLang based project we'll use 'golangci-lint', from [Github Marketplace Actions]. In general, I've selected projects with the highest amount of stars. There should be `linters` available for whichever language you are developing in.
+Imagine that your project has several contributors to it. Each probably small style differences (in GoLang, this is mostly resolved by `go fmt`), however not every programming language has built formatting for itself. Therefore, it may be a good idea to get used to having a Linter within your pipeline because the linter will enforce the same style conventions for anyone that decides to contribute to the project. It is vital that for each branch (P.R.) that is **not** the `main` branch, the linter is run. In our case, since this is a GoLang based project, we'll use 'golangci-lint', from [Github Marketplace Actions]. In general, I've selected projects with the highest amount of stars. There should be `linters` available for whichever language you are developing in.
 
 ```yaml
 ### Above is still the same
@@ -160,7 +153,7 @@ jobs:
 
 - [GoSec](https://github.com/securego/gosec)
 
-A static security scan checks the source code against a database of known [Common Vulnerability Exploits (CVE's)](https://cve.mitre.org/), by adding one no the pipeline we'll ensure that any well known public security exploits can be caught before they make it into the main branch. Again, I've selected a language specific one for GoLang, however [Snyk](https://github.com/marketplace/actions/snyk) is another valid choice and can scan several different languages. However, it will require you to set-up an account, generate a token, and is only FREE if you are working on an open source project.
+A static security scan checks the source code against a database of known [Common Vulnerability Exploits (CVE's)](https://cve.mitre.org/). By adding one to the pipeline, we'll ensure that we can catch public security exploits before merging into main. Again, I've selected a language-specific one for GoLang. However, [Snyk](https://github.com/marketplace/actions/snyk) is another good choice and can scan several different languages. However, it will require you to set up an account, generate a token, and it is only FREE if you are working on an open-source project.
 
 ```yaml
 ### Above is still the same
@@ -182,9 +175,9 @@ A static security scan checks the source code against a database of known [Commo
 
 - [Secret Scan](https://github.com/marketplace/actions/secret-scan)
 
-Checking in secrets into a GitHub branch or repo happens much more often then it should and can be tedious to clean up from the GitHub Commit History, meaning just because you delete the secret on the next check-in does not mean it is gone from GitHub history at all. Again, let's keep other contributors from being able to make that mistake by scanning for secrets on every commit to branches.
+Checking in secrets into a GitHub branch or repo happens much more often than it should. It can be tedious to clean up from the GitHub Commit History, meaning just because you delete the secret on the next check-in does not mean it is gone from GitHub history at all. Again, let's keep other contributors from making that mistake by scanning for secrets on every commit to branches.
 
-Another, perhaps greater alternative that requires creating an account and possibly may cost money is [GitGuardian Shield Action](https://github.com/marketplace/actions/gitguardian-shield-action).
+Another, perhaps more significant alternative that requires creating an account and possibly may cost money is [GitGuardian Shield Action](https://github.com/marketplace/actions/gitguardian-shield-action).
 
 ```yaml
 ### Above is still the same
@@ -200,7 +193,7 @@ secrets_check:
 
 - [Golang Test Annotation](https://github.com/marketplace/actions/golang-test-annotations)
 
-Now, we'll run the test(s) that we wrote for the web application just to make sure the behavior of the code is acting as expected, and make it a little nicer, in that whenever a test fails it'll generate a more pleasant test case failure due to using the action.
+Now, we'll run the test(s) that we wrote for the web application to make sure the behavior of the code is acting as expected, and make it a little nicer, in that whenever a test fails, and it'll generate a more pleasant test case failure due to using the action.
 
 ```yaml
 ### Above is still the same
@@ -228,15 +221,19 @@ test:
 
 #### I.f Build the Docker Image - QA
 
-Now, using Docker may be unfamiliar to some readers, but the gist of it is that Docker makes it easier to share projects and to make sure that the said project will run on anyone's machine. But, with GoLang this isn't really a worry since the binary can be compiled to tens of Operating Systems. However, I want to use Docker in case the web application ever ends up becoming deployed to Kubernetes and for practice. Because I believe each new developer should learn the basics of Docker, especially if they're going to be doing Cloud Engineering / DevOps work.
+Docker may be unfamiliar to some readers, but the gist of it is that Docker makes it easier to share projects and make sure that the said project will run on anyone's machine. With GoLang, this isn't a worry since the binary is compilable to tens of Operating Systems.
+
+However, I want to use Docker if the web application ever becomes deployed to Kubernetes or swap out the Cloud Service Provider.
+
+Because I believe each new developer should learn the basics of Docker, especially if they're going to be doing Cloud Engineering / DevOps work.
 
 ##### Setting up Docker
 
-First create the Dockerfile
+First, create the Dockerfile.
 
 
 ```yaml
-name-of-your-github-project/
+name-of-your-GitHub-project/
 .github
 main_test.go
 main.go
@@ -258,11 +255,11 @@ EXPOSE 8080
 ENTRYPOINT ["./main"]
 ```
 
-Which, are the instructions that we tell the docker installed upon the GitHub Action how to build our Docker Image for the Web App, so add the following to the `main.yaml`.
+Which are the instructions that we tell the Docker installed upon the GitHub Action how to build our Docker Image for the Web App, so add the following to the `main.yaml`.
 
-You may be prompted in the build logs to enable 'github container registry' for your repo, so go ahead and do that.
+You may be prompted to build logs to enable 'GitHub container registry' for your repo, so go ahead and do that if you see that in the logs.
 
-Also, note the `needs` section which takes in an array of values, which are in this case the previous steps. Essentially, we only want to build the image if the QA/Basic Security checks have based, otherwise we will not bother with running this step. It is ideal because it will (a) save build minutes and (b) make sure nothing that doesn't pass the basic QA and security checks is built.
+Also, note the `needs` section, which takes in an array of values: the previous steps. Essentially, we only want to build the image if the Q.A./Basic Security checks have based, otherwise we will not bother with running this step. It is ideal because it will (a) save build minutes and (b) make sure nothing that doesn't pass the basic Q.A. and security checks is built and stored in the container registry.
 
 ```yaml
 ### Above is still the same
@@ -280,7 +277,7 @@ build:
 
 ### I.g Scan the Docker image - Sec
 
-Anchore is a great free dockerfile/docker image scanning tool. I chose to use it over Snyk, another great tool withe a *free tier because it required users to set up an account with them.
+Anchore is an excellent free dockerfile/docker image scanning tool. I chose to use it over Snyk. Another great tool with a *free tier because it required users to set up an account with them.
 
 ```yaml
 ### Above is still the same
@@ -300,9 +297,9 @@ with:
 run: cat ${{ steps.scan.outputs.sarif }}
 ```
 
-### I.h Store the Docker Image inside of the github container registry for use - QA
+### I.h Store the Docker Image inside of the GitHub container registry for use - QA
 
-First create a personal token as instructed by the [GitHub Team](). Then, add the following:
+First, create a personal token as instructed by the [GitHub Team](). Then, add the following:
 
 ```yaml
 ### Above is still the same
@@ -331,17 +328,17 @@ run: |
   docker push $IMAGE_ID:$VERSION
 ```
 
-The reason we are creating an image is because we want other users to be able to simple 'PULL' the image whenever they wish to use the product. Additionally, it makes it easier to deploy to any server that is capable of running Docker such as a Kubernetes cluster, EKS, AKS, GKE, etc.
+We are creating an image because we want other users to 'PULL' the image whenever they wish to use the product. Additionally, it makes it easier to deploy to any server capable of running Docker, such as a Kubernetes cluster, EKS, AKS, GKE, etc.
 
-In our case it will be elastic beanstalk's docker platform. Lastly, it is helpful to have each image saved to the container registry in case, somehow an image is deployed that is broken. In that scenario, we can easily deploy the previous tag to the server in under a minute so that our users/customers ideally do not experience downtime (broken site experience).
+In our case, it will be elastic beanstalk's docker platform. Lastly, it is helpful to have each image saved to the container registry in case. Somehow a broken image is deployed that. In that scenario, we can quickly deploy the previous tag to the server in under a minute so that our users/customers ideally do not experience downtime (broken site experience).
 
 ## II. CD => The AWS Docker Platform via Elastic Beanstalk
 
 ### II. Parts of the (CD) Security Pipeline
 
-#### II.a Zip files for Elastic Beanstalk with the unique tag for versioning - QA
+#### II.a Zip files for Elastic Beanstalk with the unique tag for versioning - Q.A.
 
-We again rebuild the image for Elastic Beanstalk which has specific requirements such as having a zipped archive with a `Dockerfile` and `main.go`/main file of the programming language.
+We again rebuild the image for Elastic Beanstalk, which has specific requirements such as having a zipped archive with a `Dockerfile` and `main.go`/main file of the programming language.
 
 ```yaml
 ### Above is still the same
