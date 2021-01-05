@@ -14,8 +14,10 @@ layout: layouts/post.njk
 <!-- Excerpt Start -->
 
 This post shows how to build a fully automated and free DevSecOps Pipeline powered GitHub Actions for GoLang. So, anyone starting a project can make it with security in mind from day 1. The DevSecOps pipeline similar to the previous post [What is DevOps?](https://thetoulbox.com/posts/what-is-devops/), but it will be more technical in that it will **not** rely on any CLI to do everything automagically. But don't worry, I'll go over each step and explain what is being done and **why**.
+
 <!-- Excerpt End -->
 
+*Here is the [GitHub Source Code](https://github.com/llcranmer/go-devsecops-pipeline) to make it easier to follow along.
 
 ## I. Continuous Integration (CI)
 
