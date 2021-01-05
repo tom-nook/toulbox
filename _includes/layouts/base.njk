@@ -76,12 +76,6 @@
           <p>Published <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></p>
         {% endif %}
       </article>
-      {% include "subscribe-form.njk" %}
-      {% if commentsClosed != true %}
-      {% include "comment-form.njk" %}
-      {% else %}
-        <p></p>
-      {% endif %}
       <div class="comments">
       {% include "comments.njk" %}
       </div>
