@@ -13,13 +13,13 @@ layout: layouts/post.njk
 
 <!-- Excerpt Start -->
 
-This post shows how to build a fully automated and free DevSecOps Pipeline powered GitHub Actions for GoLang. So, anyone starting a project can make it with security in mind from day 1. The DevSecOps pipeline similar to the previous post [What is DevOps?](https://thetoulbox.com/posts/what-is-devops/), but it will be more technical in that it will **not** rely on any CLI to do everything automagically. But don't worry I'll go over each step and explain what is being done and **why**.
+This post shows how to build a fully automated and free DevSecOps Pipeline powered GitHub Actions for GoLang. So, anyone starting a project can make it with security in mind from day 1. The DevSecOps pipeline similar to the previous post [What is DevOps?](https://thetoulbox.com/posts/what-is-devops/), but it will be more technical in that it will **not** rely on any CLI to do everything automagically. But don't worry, I'll go over each step and explain what is being done and **why**.
 <!-- Excerpt End -->
 
 
 ## I. Continuous Integration (CI)
 
-GitHub Actions is a new offering from GitHub that turns any repository into a CI Pipeline with minimal effort. Additionally, it has a generous marketplace of [Actions](https://github.com/marketplace) that make building out a `*.yaml` pipeline file a breeze. I am using GitHub Actions for this pipeline because GitHub is one of the most popular places to store code, especially for open source projects, and it is my hope that readers can apply what they learn from this post to build their own secure pipeline. Therefore, making projects a tiny bit more security focused for both Open Source and personal (you never know who is using your public code snippets).
+GitHub Actions is a new offering from GitHub that turns any repository into a CI Pipeline with minimal effort. Additionally, it has a generous marketplace of [Actions](https://github.com/marketplace) that make building out a `*.yaml` pipeline file a breeze. I am using GitHub Actions for this pipeline because GitHub is one of the most popular places to store code, especially for open source projects, and I hope that readers can apply what they learn from this post to build their secure pipeline. Therefore, making projects a tiny bit more security-focused for both Open Source and personal (you never know who is using your public code snippets).
 
 Let's get started.
 
@@ -134,7 +134,7 @@ Now that the repo is enabled, it is time to start adding in the steps to the `ma
 
 Imagine that your project has several contributors to it. Each probably has small style differences (in GoLang, this is mostly resolved by `go fmt`), however not every programming language has built formatting for itself. Therefore, it may be a good idea to get used to having a Linter within your pipeline because the linter will enforce the same style conventions for anyone that decides to contribute to the project.
 
-So, It is vital that for each branch (P.R.) that is **not** the `main` branch, the linter is run. In our case, since this is a GoLang based project, we'll use `golangci-lint`. In general, I've selected projects with the highest amount of stars. There should be `linters` available for whichever language you are developing in.
+It is vital that for each branch (PR) that is **not** the `main` branch, the linter is run. In our case, since this is a GoLang based project, we'll use `golangci-lint`. In general, I've selected projects with the highest amount of stars. There should be `linters` available for whichever language you are developing in.
 
 ```yaml
 ### Above is still the same
@@ -156,7 +156,7 @@ jobs:
 
 - [GoSec](https://github.com/securego/gosec)
 
-A static security scan checks the source code against a database of known [Common Vulnerability Exploits (CVE's)](https://cve.mitre.org/). By adding one to the pipeline, we'll ensure that we can catch public security exploits before merging into main. Again, I've selected a language-specific one for GoLang. However, [Snyk](https://github.com/marketplace/actions/snyk) is another good choice and can scan several different languages. But, it will require you to set up an account, generate a token, and it is only FREE if you are working on an open-source project. Hence, the choice to not go with it for this project.
+A static security scan checks the source code against a database of known [Common Vulnerability Exploits (CVE's)](https://cve.mitre.org/). By adding one to the pipeline, we'll ensure that we can catch public security exploits before merging into main. Again, I've selected a language-specific one for GoLang. However, [Snyk](https://github.com/marketplace/actions/snyk) is another good choice and can scan several different languages. It will require you to set up an account and generate a token, and it is only FREE if you are working on an open-source project. Hence, the choice to not go with it for this project.
 
 ```yaml
 ### Above is still the same
@@ -198,7 +198,7 @@ secrets_check:
 
 Now, we'll run the test(s) that we wrote for the web application to make sure the behavior of the code is acting as expected, and make it a little nicer, in that whenever a test fails, it'll generate a readable test case failure for the user, due to using the action.
 
-It is important to have tests run for each branch so that when it comes to Pull Request (PR) review time, other developers can quickly see that test(s) are being added and that they are passing.
+It is essential to have tests run for each branch so that when it comes to Pull Request (PR) review time, other developers can quickly see that test(s) are added and are passing.
 
 ```yaml
 ### Above is still the same
@@ -226,15 +226,15 @@ test:
 
 #### I.f Build the Docker Image - QA
 
-Docker may be unfamiliar to some readers, but the gist of it is that Docker makes it easier to share projects and make sure that the said project will run on anyone's machine. Meaning, other devs and other servers in the cloud, so it is incredibly useful. However, with GoLang, this isn't a worry since the binary executable is compilable to tens of Operating Systems.
+Docker may be unfamiliar to some readers, but the gist of it is that Docker makes it easier to share projects and make sure that the said project will run on anyone's machine. Meaning, other devs and other servers in the cloud, so it is advantageous. However, with GoLang, this isn't a worry since the binary executable is compilable to tens of Operating Systems.
 
-But, I want to use Docker if the web application ever becomes deployed to Kubernetes or to swap out the Cloud Service Provider from AWS.
+I want to use Docker if the web application ever becomes deployed to Kubernetes or to swap out the Cloud Service Provider from AWS.
 
 Also, I believe each new developer should learn the basics of Docker, especially if they're going to be doing Cloud Engineering / DevOps work.
 
 - [How to set up Docker and tutorial](https://docs.docker.com/get-started/)
 
-It is not strictly necessary to have Docker set up on your local machine as we can use the Docker on the GitHub machine to build and test the Docker image via the pipeline we are building. Yet, many developers prefer to have copies of the software running on their machine, so do whichever works for you (me I prefer to keep it all in the cloud).
+It is not strictly necessary to have Docker set up on your local machine as we can use the Docker on the GitHub machine to build and test the Docker image via the pipeline we are building. Yet, many developers prefer to have copies of the software running on their device, so do whichever works for you.
 
 ##### Setting up Docker
 
@@ -265,7 +265,7 @@ Which are the instructions that we tell the Docker installed upon the GitHub Act
 
 You may be prompted to build logs to enable 'GitHub container registry' for your repo, so go ahead and do that if you see that in the logs.
 
-Also, note the `needs` section, which takes in an array of values: the previous steps. Essentially, we only want to build the image if the Q.A./Basic Security checks have based, otherwise we will not bother with running this step. It is ideal because it will (a) save build minutes and (b) make sure nothing that doesn't pass the basic Q.A. and security checks is built and stored in the container registry, saving on memory usage for the project. Each user gets around 500 MB to 2 GB of Docker Image storage (Free vs PRO plan). So, don't want to waste memory on poor quality images.
+Note the `needs` section, which takes in an array of values: the previous steps. Essentially, we only want to build the image if the Q.A./Basic Security checks have based, otherwise we will not bother with running this step. It is ideal because it will (a) save build minutes and (b) make sure nothing that doesn't pass the necessary QA and security checks is built and stored in the container registry, saving on memory usage for the project. Each user gets around 500 MB to 2 GB of Docker Image storage (Free vs. PRO plan). So, I don't want to waste memory on low-quality images.
 
 ```yaml
 ### Above is still the same
@@ -285,11 +285,11 @@ build:
 
 - [Anchore Docker Image Scanner](https://github.com/marketplace/actions/anchore-container-scan)
 
-Anchore is an excellent Dockerfile/Docker image scanning tool with a free tier that doesn't require the user to create an account. It is important to have a tool like Anchore in the pipeline because it scans the Operating System (OS) that the Dockerfile builds for vulnerabilities (CVE's).
+Anchore is an excellent Dockerfile/Docker image scanning tool with a free tier that doesn't require the user to create an account. It is vital to have a tool like Anchore in the pipeline because it scans the Operating System (OS) that the Dockerfile builds for vulnerabilities (CVE's).
 
-For this project we have based the web application off of the `golang:1.14-Alpine` mini OS because it is small and includes only the bare minimal to run, which means there is less likelihood of it being exploitable.
+For this project, we have based the web application on the `golang:1.14-Alpine` mini OS because it is small and includes only the bare minimum to run, which means there is less likelihood of it being exploitable.
 
-In general the more software is included the larger the attack surface is, so it is a common practice to go through the Operating System and strip out unnecessary packages/softaware to reduce the attack surface.
+In general, the more software is included, the larger the attack surface is. Hence, it is common to go through the Operating System and strip out unnecessary packages/software to reduce the attack surface.
 
 ```yaml
 ### Above is still the same
@@ -313,7 +313,7 @@ run: cat ${{ steps.scan.outputs.sarif }}
 
 First, create a [personal token](https://github.com/settings/tokens) with the permissions to *delete:packages*, *read:packages*, *repo*, *write:packages* and name it **CR_PAT**.
 
-Once, it has been created add to your secrets for the repository by going to this link `https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_GITHUB_PROJECT>/settings/secrets/actions` for example it is `https://github.com/llcranmer/go-devsecops-pipeline/settings/secrets/actions` for this project.
+Once it has been created, add to your secrets for the repository by going to this link `https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_GITHUB_PROJECT>/settings/secrets/actions` for example, it is `https://github.com/llcranmer/go-devsecops-pipeline/settings/secrets/actions` for this project.
 
  Then, add the following:
 
@@ -344,7 +344,7 @@ run: |
   docker push $IMAGE_ID:$VERSION
 ```
 
-We are creating an image because we want other developers to be able to `PULL` the image whenever they wish to contribute.
+We are creating an image because we want other developers to `PULL` the image whenever they wish to contribute.
 
 Additionally, it makes it easier to deploy to any server capable of running Docker, such as a Kubernetes cluster, EKS, AKS, GKE, etc.
 
@@ -354,7 +354,7 @@ In our case, it will be [Elastic Beanstalk's Docker Platform](https://docs.aws.a
 
 ### II. Parts of the (CD) Security Pipeline
 
-#### II.a Zip files for Elastic Beanstalk with the unique tag for versioning - Q.A.
+#### II.a Zip files for Elastic Beanstalk with the unique tag for versioning - QA.
 
 We create a *.zip* archive for Elastic Beanstalk, which has specific requirements such as having the `Dockerfile` and `main.go`/main file of the programming language within the **.zip**.
 
@@ -387,13 +387,13 @@ deploy:
 
 - [Beanstalk Deploy](https://github.com/marketplace/actions/beanstalk-deploy)
 
-It is important if you are following along to provision the Elastic Beanstalk environment beforehand. Please, use this video as reference: [Golang on AWS Elastic Beanstalk in 5 minutes](https://www.youtube.com/watch?v=OgSRDwyhMTM).
+It is crucial if you are following along to provision the Elastic Beanstalk environment beforehand. Please, use this video as a reference: [Golang on AWS Elastic Beanstalk in 5 minutes](https://www.youtube.com/watch?v=OgSRDwyhMTM).
 
-As in the case of much of things that are automated the first iteration is usually done manually, hence the need to do it by hand the first time.
+As in many automated things, the first iteration is usually done manually, hence the need to do it by hand the first time.
 
-Once, the environment is up and running then we can add the code snippet below to the `main.yaml` to automate all future deployments.
+Once the environment is up and running, we can add the code snippet below to the `main.yaml` to automate all future deployments.
 
-To do so requires you to create a new IAM USER with the `AWSElasticBeanstalkFullAccess` that has `programmatic access` to the AWS account, which will generate an **AWS_ACCESS_KEY_ID** and **AWS_SECRET_ACCESS_KEY**, make sure to download the *.csv that contains them for later use.
+To do so requires you to create a new IAM USER with the `AWSElasticBeanstalkFullAccess` with `programmatic access` to the AWS account, which will generate an **AWS_ACCESS_KEY_ID** and **AWS_SECRET_ACCESS_KEY**. Make sure to download the *.csv that contains them for later use.
 
 Next, add the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to your GitHub repository secrets.
 
@@ -417,9 +417,9 @@ with:
 
 - [OWASP ZAP Full Scan](https://github.com/marketplace/actions/owasp-zap-full-scan)
 
-By adding the OWASP ZAP full scan we are automating the basic pen testing of our newly deployed web application. Pen testing in general can take hours of time so it is nice to have it automated for the basics. It is even better that as part of the automation an issue is created at the end on the repository showing all of the problems with the web application so that you can keep track of them and start working on them immediately.
+By adding the OWASP ZAP full scan, we are automating our newly deployed web application's necessary pen-testing. In general, Pen testing can take hours, so it is nice to have it automated for the basics. It is even better that as part of the automation, an issue is created at the end of the repository showing all of the problems with the web application to keep track of them and start working on them immediately.
 
-To enable the Issue Creation a `ZAP_TOKEN` need to be created with read and write access for issues.
+To enable the Issue Creation, a `ZAP_TOKEN` need to be created with reading and write access for issues.
 
 ```yaml
 ### Above is still the same
