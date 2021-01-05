@@ -387,7 +387,7 @@ deploy:
 
 - [Beanstalk Deploy](https://github.com/marketplace/actions/beanstalk-deploy)
 
-It is important if you are following along to go ahead and provision the Elastic Beanstalk environment beforehand. Please, use this video as reference: [Golang on AWS Elastic Beanstalk in 5 minutes](https://www.youtube.com/watch?v=OgSRDwyhMTM).
+It is important if you are following along to provision the Elastic Beanstalk environment beforehand. Please, use this video as reference: [Golang on AWS Elastic Beanstalk in 5 minutes](https://www.youtube.com/watch?v=OgSRDwyhMTM).
 
 As in the case of much of things that are automated the first iteration is usually done manually, hence the need to do it by hand the first time.
 
@@ -414,6 +414,12 @@ with:
 
 
 #### II.c Dynamically test the web application - Sec
+
+- [OWASP ZAP Full Scan](https://github.com/marketplace/actions/owasp-zap-full-scan)
+
+By adding the OWASP ZAP full scan we are automating the basic pen testing of our newly deployed web application. Pen testing in general can take hours of time so it is nice to have it automated for the basics. It is even better that as part of the automation an issue is created at the end on the repository showing all of the problems with the web application so that you can keep track of them and start working on them immediately.
+
+To enable the Issue Creation a `ZAP_TOKEN` need to be created with read and write access for issues.
 
 ```yaml
 ### Above is still the same
