@@ -2,7 +2,7 @@
 title: What is DevSecOps?
 description: DevSecOps is becoming a desirable practice in many organizations, but What is DevSecoOps exactly? In this post, a Professional DevSecOps Engineer shares their thoughts.
 image: https://source.unsplash.com/jHZ70nRk7Ns/800x600
-date: 2020-10-08
+date: 2021-01-05
 tags:
  - DevOps
  - DevSecOps
