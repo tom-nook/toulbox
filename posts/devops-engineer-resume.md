@@ -1,18 +1,16 @@
 ---
-title: DevOps Engineer Resume Example
-description: Here is an example of a Devops Engineer Resume for Both Internship and Fulltime
-image: https://source.unsplash.com/Mwuod2cm8g4/800x600
-date: 2021-2-01
+title: A DevOps Engineer Resume Example
+date: 2021-02-01
+description: I provide my resume as an example and some tips
+image: https://source.unsplash.com/4JxV3Gs42Ks/800x600
 tags:
-  - DevOps
-  - DevSecOps
+ - DevOps
 layout: layouts/post.njk
 ---
 
+
 <!-- Excerpt Start -->
-
 In this post I provide my DevOps Engineer Resume as an example, and the tool I wield to make it competitive when applying to jobs.
-
 <!-- Excerpt End -->
 
 DevOps is a challenging field to get into and as a consequence it is even more challenging finding DevOps Engineers in most folk's
