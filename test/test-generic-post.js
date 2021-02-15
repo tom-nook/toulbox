@@ -4,7 +4,7 @@ const { JSDOM } = require("jsdom");
 const readFileSync = require("fs").readFileSync;
 const existsSync = require("fs").existsSync;
 const metadata = require("../_data/metadata.json");
-const metadata = require("../_data/metadata.json");
+const GA_ID = require("../_data/googleanalytics.js")();
 /**
  * These tests kind of suck and they are kind of useful.
  *
