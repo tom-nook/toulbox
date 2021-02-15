@@ -4,7 +4,7 @@ const { JSDOM } = require("jsdom");
 const readFileSync = require("fs").readFileSync;
 const existsSync = require("fs").existsSync;
 const metadata = require("../_data/metadata.json");
-
+const metadata = require("../_data/metadata.json");
 /**
  * These tests kind of suck and they are kind of useful.
  *
@@ -67,6 +67,26 @@ describe("check build output for a generic post", () => {
         /^\/js\/min\.js\?hash=\w+/
       );
     });
+
+    it("should have GA a setup", () => {
+       if (!GA_ID) {
+         return;
+       }
+       const scripts = doc.querySelectorAll("script[src]");
+       expect(scripts[1].getAttribute("src")).to.match(
+         /^\/js\/cached\.js\?hash=\w+/
+       );
+       const noscript = doc.querySelectorAll("noscript");
+       expect(noscript.length).to.be.greaterThan(0);
+       let count = 0;
+       for (let n of noscript) {
+         if (n.textContent.includes("/.netlify/functions/ga")) {
+           count++;
+           expect(n.textContent).to.contain(GA_ID);
+         }
+       }
+       expect(count).to.equal(1);
+     });
 
     it("should have a good CSP", () => {
       const csp = select(
